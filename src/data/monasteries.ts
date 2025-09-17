@@ -1,3 +1,8 @@
+import rumtekImg from '@/assets/rumtek-monastery.jpg';
+import pemayangtseImg from '@/assets/pemayangtse-monastery.jpg';
+import tashidingImg from '@/assets/tashiding-monastery.jpg';
+import encheyImg from '@/assets/enchey-monastery.jpg';
+
 export interface Monastery {
   id: string;
   name: string;
@@ -27,7 +32,7 @@ export const monasteries: Monastery[] = [
     location: "Gangtok, East Sikkim",
     era: "16th Century",
     description: "The largest monastery in Sikkim, also known as the Dharma Chakra Centre. It's the seat of the Karmapa Lama.",
-    image: "/api/placeholder/400/300",
+    image: rumtekImg,
     panoramaUrl: "https://pannellum.org/images/alma.jpg",
     audioGuideUrl: "/api/placeholder/audio",
     coordinates: { lat: 27.2984, lng: 88.5658 },
@@ -50,7 +55,7 @@ export const monasteries: Monastery[] = [
     location: "Pelling, West Sikkim", 
     era: "17th Century",
     description: "One of the oldest and premier monasteries of Sikkim, belonging to the Nyingma order of Tibetan Buddhism.",
-    image: "/api/placeholder/400/300",
+    image: pemayangtseImg,
     panoramaUrl: "https://pannellum.org/images/bma-1.jpg",
     audioGuideUrl: "/api/placeholder/audio",
     coordinates: { lat: 27.2892, lng: 88.2394 },
@@ -72,7 +77,7 @@ export const monasteries: Monastery[] = [
     location: "Tashiding, West Sikkim",
     era: "17th Century", 
     description: "Sacred monastery located on a hilltop, famous for its holy stupa and annual Bumchu festival.",
-    image: "/api/placeholder/400/300",
+    image: tashidingImg,
     panoramaUrl: "https://pannellum.org/images/cerro-toco-0.jpg",
     audioGuideUrl: "/api/placeholder/audio",
     coordinates: { lat: 27.3497, lng: 88.2675 },
@@ -93,7 +98,7 @@ export const monasteries: Monastery[] = [
     location: "Gangtok, East Sikkim",
     era: "19th Century",
     description: "Beautiful monastery with stunning views of Kanchenjunga, famous for its annual Cham dance.",
-    image: "/api/placeholder/400/300", 
+    image: encheyImg, 
     panoramaUrl: "https://pannellum.org/images/bma-2.jpg",
     audioGuideUrl: "/api/placeholder/audio",
     coordinates: { lat: 27.3389, lng: 88.6065 },

@@ -59,28 +59,36 @@ const Explore = () => {
           setEraFilter={setEraFilter}
         />
 
-        {/* Interactive Map */}
-        <InteractiveMap
-          monasteries={filteredMonasteries}
-          onMonasterySelect={handleMonasterySelect}
-        />
-
-        {/* Results Summary */}
-        <div className="mb-6">
-          <p className="text-muted-foreground">
-            Showing {filteredMonasteries.length} of {monasteries.length} monasteries
-          </p>
+        {/* Interactive Map Section */}
+        <div className="mb-12">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Interactive Monastery Map</h2>
+            <p className="text-muted-foreground">Explore monasteries on an interactive map</p>
+          </div>
+          <InteractiveMap
+            monasteries={filteredMonasteries}
+            onMonasterySelect={handleMonasterySelect}
+          />
         </div>
 
-        {/* Monastery Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {filteredMonasteries.map((monastery) => (
-            <MonasteryCard
-              key={monastery.id}
-              monastery={monastery}
-              onViewDetails={handleViewDetails}
-            />
-          ))}
+        {/* Monasteries Section */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Monasteries Collection</h2>
+            <p className="text-muted-foreground mb-4">
+              Showing {filteredMonasteries.length} of {monasteries.length} monasteries
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredMonasteries.map((monastery) => (
+              <MonasteryCard
+                key={monastery.id}
+                monastery={monastery}
+                onViewDetails={handleViewDetails}
+              />
+            ))}
+          </div>
         </div>
 
         {/* No Results */}

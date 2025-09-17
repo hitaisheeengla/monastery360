@@ -21,16 +21,32 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ monasteries, onMonaster
         Interactive Monastery Map
       </h3>
       
-      {/* Map Container with Grid Layout */}
-      <div className="relative w-full h-96 bg-gradient-to-br from-monastery-mountain/10 to-prayer-blue/10 rounded-lg border border-border overflow-hidden">
-        {/* Map Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
-          {/* Grid pattern to simulate map */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="w-full h-full" style={{
-              backgroundImage: `linear-gradient(#ccc 1px, transparent 1px), linear-gradient(90deg, #ccc 1px, transparent 1px)`,
-              backgroundSize: '20px 20px'
-            }} />
+      {/* Map Container with Terrain Background */}
+      <div className="relative w-full h-96 bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 rounded-lg border border-border overflow-hidden">
+        {/* Terrain Map Background */}
+        <div className="absolute inset-0">
+          {/* Mountain ranges background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-200/40 via-green-200/40 to-green-300/40 dark:from-blue-800/20 dark:via-green-800/20 dark:to-green-700/20">
+            {/* Topographic lines pattern */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="w-full h-full" style={{
+                backgroundImage: `
+                  radial-gradient(ellipse 200px 80px at 20% 30%, transparent 30%, rgba(34, 197, 94, 0.1) 31%, rgba(34, 197, 94, 0.1) 35%, transparent 36%),
+                  radial-gradient(ellipse 250px 100px at 60% 50%, transparent 30%, rgba(34, 197, 94, 0.1) 31%, rgba(34, 197, 94, 0.1) 35%, transparent 36%),
+                  radial-gradient(ellipse 180px 60px at 80% 70%, transparent 30%, rgba(34, 197, 94, 0.1) 31%, rgba(34, 197, 94, 0.1) 35%, transparent 36%),
+                  linear-gradient(45deg, rgba(59, 130, 246, 0.05) 25%, transparent 25%),
+                  linear-gradient(-45deg, rgba(34, 197, 94, 0.05) 25%, transparent 25%)
+                `,
+                backgroundSize: '300px 200px, 400px 250px, 200px 150px, 40px 40px, 40px 40px'
+              }} />
+            </div>
+            {/* Rivers/paths */}
+            <div className="absolute inset-0 opacity-20">
+              <svg className="w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="none">
+                <path d="M0,150 Q100,120 200,140 T400,160" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="2" fill="none" />
+                <path d="M0,200 Q150,180 300,190 L400,195" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="1.5" fill="none" />
+              </svg>
+            </div>
           </div>
         </div>
 
