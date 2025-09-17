@@ -6,6 +6,7 @@ import TravelRoutes from '@/components/TravelRoutes';
 import TransportInfo from '@/components/TransportInfo';
 import HomestayBooking from '@/components/HomestayBooking';
 import PDFExport from '@/components/PDFExport';
+import TripPlanMap from '@/components/TripPlanMap';
 
 const PlanTrip = () => {
   return (
@@ -19,14 +20,27 @@ const PlanTrip = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="itinerary" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+        <Tabs defaultValue="map" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-6">
+            <TabsTrigger value="map">Route Map</TabsTrigger>
             <TabsTrigger value="itinerary">My Itinerary</TabsTrigger>
             <TabsTrigger value="routes">Travel Routes</TabsTrigger>
             <TabsTrigger value="transport">Transport</TabsTrigger>
             <TabsTrigger value="homestays">Homestays</TabsTrigger>
             <TabsTrigger value="export">Download</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="map" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Interactive Route Planning</CardTitle>
+                <CardDescription>
+                  Plan your journey with interactive mapping, route optimization, and nearby recommendations.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <TripPlanMap />
+          </TabsContent>
 
           <TabsContent value="itinerary" className="space-y-6">
             <Card>
