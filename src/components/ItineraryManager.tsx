@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Calendar, Trash2, GripVertical, Plus, Clock } from 'lucide-react';
+import { MapPin, Calendar, Trash2, GripVertical, Plus, Clock, Map, Route, Eye } from 'lucide-react';
+import InteractiveMap from './InteractiveMap';
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { format } from 'date-fns';
 import {
@@ -46,33 +47,31 @@ const SortableMonasteryItem = ({ monastery, index, onRemove }: {
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="group relative bg-card border rounded-lg p-4 hover:shadow-md transition-all duration-200"
+    <div className="group relative bg-gradient-to-r from-card via-card to-primary/5 border rounded-xl p-4 hover:shadow-mountain transition-all duration-300 hover:border-primary/30 animate-scale-in"
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="flex items-center gap-4">
         <div 
           {...attributes} 
           {...listeners}
-          className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground"
+          className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-primary transition-colors"
         >
           <GripVertical className="h-4 w-4" />
         </div>
         
-        <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium">
+        <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium shadow-md animate-pulse">
           {index + 1}
         </div>
         
         <div className="flex-1">
           <h4 className="font-semibold text-lg">{monastery.name}</h4>
           <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
-            <MapPin className="h-3 w-3" />
+            <MapPin className="h-3 w-3 text-primary" />
             {monastery.location}
           </div>
           <div className="flex items-center gap-2 mt-2">
-            <Badge variant="secondary" className="text-xs">{monastery.era}</Badge>
-            <Badge variant="outline" className="text-xs">
+            <Badge variant="secondary" className="text-xs bg-primary/10 text-primary border border-primary/20">{monastery.era}</Badge>
+            <Badge variant="outline" className="text-xs border-accent/30 text-accent">
               <Clock className="h-3 w-3 mr-1" />
               2-3 hrs visit
             </Badge>
@@ -83,7 +82,7 @@ const SortableMonasteryItem = ({ monastery, index, onRemove }: {
           variant="ghost"
           size="icon"
           onClick={() => onRemove(monastery.id)}
-          className="opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive"
+          className="opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive hover:bg-destructive/10"
         >
           <Trash2 className="h-4 w-4" />
         </Button>
@@ -166,21 +165,22 @@ const ItineraryManager = () => {
   return (
     <div className="space-y-6">
       <Tabs defaultValue="list" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="list">List View</TabsTrigger>
           <TabsTrigger value="days">Day-wise Plan</TabsTrigger>
+          <TabsTrigger value="map">Map View</TabsTrigger>
         </TabsList>
 
         <TabsContent value="list" className="space-y-6">
           {monasteries.length > 0 && (
-            <Card>
+            <Card className="hover-lift bg-gradient-to-br from-card via-card to-primary/5 border-primary/20 shadow-monastery">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
+                    <MapPin className="h-5 w-5 text-primary" />
                     Monasteries ({monasteries.length})
                   </div>
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="text-xs animate-pulse">
                     Drag to reorder
                   </Badge>
                 </CardTitle>
@@ -209,12 +209,12 @@ const ItineraryManager = () => {
                 </DndContext>
 
                 {monasteries.length > 0 && (
-                  <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+                  <div className="mt-6 p-4 bg-gradient-to-r from-muted/30 to-primary/10 rounded-lg border border-primary/20">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">
                         Estimated total travel time: {monasteries.length * 2.5}+ hours
                       </span>
-                      <Badge variant="outline">
+                      <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
                         {monasteries.length} {monasteries.length === 1 ? 'stop' : 'stops'}
                       </Badge>
                     </div>
@@ -225,19 +225,19 @@ const ItineraryManager = () => {
           )}
 
           {savedEvents.length > 0 && (
-            <Card>
+            <Card className="hover-lift bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 shadow-cultural">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
+                  <Calendar className="h-5 w-5 text-accent" />
                   Events & Festivals ({savedEvents.length})
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {savedEvents.map((event, index) => (
-                  <div key={event.id} className="group bg-card border rounded-lg p-4 hover:shadow-md transition-all">
+                  <div key={event.id} className="group bg-gradient-to-r from-card to-accent/5 border rounded-lg p-4 hover:shadow-md transition-all hover:border-accent/30">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="bg-monastery-saffron text-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium">
+                        <div className="bg-accent/20 text-accent rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium border border-accent/30">
                           E
                         </div>
                         <div>
@@ -272,34 +272,102 @@ const ItineraryManager = () => {
 
         <TabsContent value="days" className="space-y-6">
           {dayPlans.map((dayMonasteries, dayIndex) => (
-            <Card key={dayIndex}>
-              <CardHeader>
+            <Card key={dayIndex} className="overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5">
                 <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
+                  <Calendar className="h-5 w-5 text-primary" />
                   Day {dayIndex + 1}
                   <Badge variant="secondary" className="ml-2">
                     {dayMonasteries.length} {dayMonasteries.length === 1 ? 'stop' : 'stops'}
                   </Badge>
+                  <div className="ml-auto flex items-center gap-1 text-sm text-muted-foreground">
+                    <Clock className="h-4 w-4" />
+                    {dayMonasteries.length * 2.5} hrs
+                  </div>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {dayMonasteries.map((monastery: any, index: number) => (
-                  <div key={monastery.id} className="flex items-center gap-4 p-3 border rounded-lg">
-                    <div className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
-                      {index + 1}
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  {dayMonasteries.map((monastery: any, index: number) => (
+                    <div key={monastery.id} className="relative">
+                      <div className="flex items-center gap-4 p-4 border rounded-lg hover:border-primary/30 transition-colors bg-gradient-to-r from-card to-muted/20">
+                        <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium shadow-md">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-lg">{monastery.name}</h4>
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                            <MapPin className="h-3 w-3" />
+                            {monastery.location}
+                          </div>
+                          <div className="flex items-center gap-4 mt-2">
+                            <Badge variant="outline" className="text-xs">
+                              <Clock className="h-3 w-3 mr-1" />
+                              2-3 hrs visit
+                            </Badge>
+                            <Badge variant="secondary" className="text-xs">
+                              {monastery.era}
+                            </Badge>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm" className="opacity-70 hover:opacity-100">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      
+                      {/* Connection Line */}
+                      {index < dayMonasteries.length - 1 && (
+                        <div className="flex items-center justify-center my-2">
+                          <div className="w-px h-8 bg-border"></div>
+                          <div className="absolute bg-card px-2">
+                            <Route className="h-4 w-4 text-muted-foreground" />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold">{monastery.name}</h4>
-                      <p className="text-sm text-muted-foreground">{monastery.location}</p>
+                  ))}
+                </div>
+                
+                {/* Day Summary */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg border border-dashed border-border">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      Daily estimated travel time: {dayMonasteries.length * 2.5} hours
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline">
+                        {dayMonasteries.length} stops
+                      </Badge>
+                      <Button variant="outline" size="sm" disabled>
+                        <Route className="h-3 w-3 mr-1" />
+                        View Route
+                      </Button>
                     </div>
-                    <Badge variant="outline" className="text-xs">
-                      2-3 hrs
-                    </Badge>
                   </div>
-                ))}
+                </div>
               </CardContent>
             </Card>
           ))}
+        </TabsContent>
+
+        <TabsContent value="map" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Map className="h-5 w-5 text-primary" />
+                Your Journey Map
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <InteractiveMap 
+                monasteries={monasteries} 
+                onMonasterySelect={(monastery) => {
+                  // Handle monastery selection if needed
+                  console.log('Selected monastery:', monastery);
+                }} 
+              />
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

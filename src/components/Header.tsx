@@ -42,7 +42,12 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
+
           <nav className="hidden lg:flex space-x-0.5">
+          </nav>
+
+          <nav className="hidden lg:flex items-center space-x-0.5">
+
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link key={path} to={path}>
                 <Button 
@@ -58,7 +63,7 @@ const Header = () => {
 
           {/* Language Selector & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
-            <select 
+            {/* <select 
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               className="bg-background border border-border rounded-md px-3 py-1 text-sm"
@@ -66,7 +71,7 @@ const Header = () => {
               <option value="English">English</option>
               <option value="Hindi">हिंदी</option>
               <option value="Nepali">नेपाली</option>
-            </select>
+            </select> */}
             <Button variant="outline">Sign In</Button>
             <Button>Sign Up</Button>
           </div>
@@ -100,7 +105,7 @@ const Header = () => {
             </nav>
             
             <div className="flex flex-col space-y-2 mt-4">
-              <select 
+              {/* <select 
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
                 className="bg-background border border-border rounded-md px-3 py-2"
@@ -108,7 +113,7 @@ const Header = () => {
                 <option value="English">English</option>
                 <option value="Hindi">हिंदी</option>
                 <option value="Nepali">नेपाली</option>
-              </select>
+              </select> */}
               <div className="flex space-x-2">
                 <Button variant="outline" className="flex-1">Sign In</Button>
                 <Button className="flex-1">Sign Up</Button>

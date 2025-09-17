@@ -9,10 +9,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { CalendarIcon, Home, Star, MapPin, Users, Wifi, Car, Coffee, CheckCircle, ArrowLeft, FileText, Phone } from 'lucide-react';
+import { CalendarIcon, Home, Star, MapPin, Users, Wifi, Car, Coffee, CheckCircle, ArrowLeft, FileText, Phone, Heart, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
+import mountainViewImage from '@/assets/homestay-mountain-view.jpg';
+import heritageImage from '@/assets/homestay-heritage.jpg';
+import valleyImage from '@/assets/homestay-valley.jpg';
 
 interface Homestay {
   id: string;
@@ -50,7 +53,7 @@ const HomestayBooking = () => {
       pricePerNight: 2500,
       capacity: 4,
       amenities: ['WiFi', 'Parking', 'Traditional Meals', 'Mountain View'],
-      image: '/api/placeholder/300/200',
+      image: mountainViewImage,
       hostName: 'Tenzin Lhamo',
       description: 'Traditional Sikkimese home with stunning mountain views and authentic local cuisine.'
     },
@@ -63,7 +66,7 @@ const HomestayBooking = () => {
       pricePerNight: 2000,
       capacity: 6,
       amenities: ['WiFi', 'Garden', 'Local Cuisine', 'Kanchenjunga View'],
-      image: '/api/placeholder/300/200',
+      image: heritageImage,
       hostName: 'Karma Sherpa',
       description: 'Cozy homestay with garden views and traditional Sikkimese hospitality.'
     },
@@ -76,7 +79,7 @@ const HomestayBooking = () => {
       pricePerNight: 1800,
       capacity: 4,
       amenities: ['Organic Food', 'Nature Walks', 'Meditation Space', 'River View'],
-      image: '/api/placeholder/300/200',
+      image: valleyImage,
       hostName: 'Pemba Tamang',
       description: 'Peaceful valley location perfect for meditation and connecting with nature.'
     }
@@ -177,58 +180,97 @@ const HomestayBooking = () => {
               Choose Your Homestay
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             {homestays.map((homestay) => (
               <div 
                 key={homestay.id}
-                className="group border rounded-lg p-4 hover:border-primary transition-all cursor-pointer hover:shadow-md"
+                className="group border rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer hover:shadow-mountain bg-gradient-to-br from-card to-card/50"
                 onClick={() => handleHomestaySelection(homestay)}
               >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold text-lg">{homestay.name}</h4>
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{homestay.rating}</span>
+                {/* Image Section */}
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={homestay.image} 
+                    alt={homestay.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  
+                  {/* Floating Actions */}
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <button className="bg-white/20 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/30 transition-colors">
+                      <Heart className="h-4 w-4" />
+                    </button>
+                    <button className="bg-white/20 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/30 transition-colors">
+                      <Eye className="h-4 w-4" />
+                    </button>
+                  </div>
+                  
+                  {/* Rating Badge */}
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">{homestay.rating}</span>
+                  </div>
+                  
+                  {/* Price Tag */}
+                  <div className="absolute bottom-4 right-4 bg-primary/90 backdrop-blur-sm text-white rounded-lg px-3 py-2">
+                    <div className="font-bold text-lg">₹{homestay.pricePerNight}</div>
+                    <div className="text-xs opacity-90">per night</div>
+                  </div>
+                </div>
+                
+                {/* Content Section */}
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex-1">
+                      <h4 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">{homestay.name}</h4>
+                      <p className="text-muted-foreground mb-2 flex items-center gap-1">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        {homestay.location}
+                      </p>
+                      <p className="text-sm text-muted-foreground flex items-center gap-1 mb-3">
+                        <Home className="h-3 w-3" />
+                        {homestay.nearbyMonastery}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Users className="h-4 w-4" />
+                      <span className="text-sm">Up to {homestay.capacity} guests</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{homestay.description}</p>
+                  
+                  {/* Amenities */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {homestay.amenities.map((amenity, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs bg-primary/10 text-primary border border-primary/20">
+                        <span className="flex items-center gap-1">
+                          <Wifi className="h-3 w-3" />
+                          {amenity}
+                        </span>
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  {/* Host & Action */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <Home className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium">Host: {homestay.hostName}</p>
+                        <p className="text-xs text-muted-foreground">Verified Host</p>
                       </div>
                     </div>
-                    <p className="text-muted-foreground mb-2">{homestay.location}</p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-1 mb-2">
-                      <MapPin className="h-3 w-3" />
-                      {homestay.nearbyMonastery}
-                    </p>
-                    <p className="text-sm">{homestay.description}</p>
+                    <Button 
+                      className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-md"
+                      size="sm"
+                    >
+                      Select Homestay
+                    </Button>
                   </div>
-                  <div className="text-right ml-4">
-                    <div className="font-bold text-xl text-primary">₹{homestay.pricePerNight}</div>
-                    <div className="text-sm text-muted-foreground">per night</div>
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
-                      <Users className="h-3 w-3" />
-                      Up to {homestay.capacity} guests
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {homestay.amenities.map((amenity, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      <span className="flex items-center gap-1">
-                        <Wifi className="h-3 w-3" />
-                        {amenity}
-                      </span>
-                    </Badge>
-                  ))}
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <p className="text-sm text-muted-foreground">Host: {homestay.hostName}</p>
-                  <Button 
-                    variant="outline" 
-                    className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-                  >
-                    Select This Homestay
-                  </Button>
                 </div>
               </div>
             ))}
