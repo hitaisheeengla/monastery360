@@ -112,7 +112,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-32 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
+    <section ref={sectionRef} className="py-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-monastery-saffron/20 to-prayer-yellow/20 rounded-full blur-3xl animate-float" />

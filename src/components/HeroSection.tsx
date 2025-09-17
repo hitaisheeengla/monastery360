@@ -18,12 +18,12 @@ const HeroSection = () => {
 
   const quickLinks = [
     {
-      title: 'Explore Monasteries',
-      description: 'Discover sacred sites through immersive virtual tours',
+      title: 'Monasteries',
+      description: 'Explore sites with immersive virtual tours.',
       icon: MapPin,
       path: '/explore',
       gradient: 'from-monastery-red via-monastery-saffron to-monastery-mountain',
-      stats: '50+ Monasteries'
+      stats: '200+ Monasteries'
     },
     {
       title: 'Plan My Trip',
@@ -59,8 +59,8 @@ const HeroSection = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 animate-slowZoom"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-radial from-black/40 via-black/60 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-radial from-black/15 via-black/35 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
       </div>
 
       {/* Floating Elements */}
@@ -81,14 +81,14 @@ const HeroSection = () => {
             <Sparkles className="w-4 h-4 text-monastery-saffron animate-spin-slow" />
           </div>
 
-          <h1 className="text-6xl lg:text-8xl font-bold mb-8 leading-tight">
+          <h1 className="text-6xl lg:text-[5.6rem] font-bold mb-10 mx-2">
             <span className="block animate-slideInLeft">Journey Through</span>
-            <span className="block bg-gradient-to-r from-monastery-saffron via-prayer-yellow to-monastery-red bg-clip-text text-transparent animate-slideInRight">
+            <span className="block bg-gradient-to-r from-monastery-saffron via-prayer-yellow to-monastery-saffron bg-clip-text text-transparent animate-slideInRight">
               Sikkim's Sacred Monasteries
             </span>
           </h1>
           
-          <p className="text-xl lg:text-2xl mb-12 text-white/90 max-w-4xl mx-auto leading-relaxed animate-fadeInUp">
+          <p className="text-xl lg:text-2xl mb-12 text-white/80 max-w-4xl mx-auto leading-relaxed animate-fadeInUp">
             Discover ancient wisdom through immersive 360° virtual tours, guided narrations, 
             and culturally rich experiences that bridge tradition with technology.
           </p>
@@ -139,14 +139,14 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
         <div className="flex flex-col items-center">
           <span className="text-sm mb-2">Scroll to explore</span>
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
             <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse" />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
