@@ -28,6 +28,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ monasteries, filteredMo
       {/* Map + Cards Layout */}
       <div className="flex gap-6">
         {/* Map Container with Terrain Background */}
+         
         <div className="relative w-2/3 h-96 bg-gradient-to-br from-green-100 to-blue-100 
                   dark:from-green-900/30 dark:to-blue-900/30 rounded-lg border border-border overflow-hidden">
           {/* Monastery Markers */}

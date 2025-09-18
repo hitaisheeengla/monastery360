@@ -6,7 +6,10 @@ import MonasteryCard from '@/components/MonasteryCard';
 import MonasteryDetail from '@/components/MonasteryDetail';
 import { Monastery } from '@/data/monasteries';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Eye, Navigation } from 'lucide-react';
+import { MapPin, Landmark, Eye, Navigation } from 'lucide-react';
+
+import "mapbox-gl/dist/mapbox-gl.css";
+
 
 
 const Explore = () => {
@@ -56,16 +59,21 @@ const Explore = () => {
 
 
         <Tabs defaultValue="map" className="mb-8 ">
-          <TabsList className="w-full h-14 flex justify-center mb-4">
+          <div className='w-auto inline-flex'>
+          <TabsList className="w-full h-12 flex justify-center mb-1">
             <TabsTrigger value="map" className='text-lg'>
               <MapPin className="mr-2 h-5 w-5 text-monastery-red" />
               Interactive Monastery Map
             </TabsTrigger>
-            <TabsTrigger value="collection" className='text-lg'>Monasteries Collection</TabsTrigger>
+            <TabsTrigger value="collection" className='text-lg'>
+              <Landmark className="mr-2 h-5 w-5 text-monastery-red" />
+              Monasteries Collection
+              </TabsTrigger>
           </TabsList>
+          </div>
           <TabsContent value="map">
             {/* Search & Filters */}
-            <div className="w-full h-14">
+            <div className="w-full">
               <SearchFilters
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
@@ -75,21 +83,14 @@ const Explore = () => {
                 setEraFilter={setEraFilter}
               />
             </div>
-            <div className="mb-12">
-              <InteractiveMap
-                monasteries={filteredMonasteries}
-                filteredMonasteries={filteredMonasteries} // pass filtered for grid
-                isFiltered={isFiltered}
-                onMonasterySelect={handleMonasterySelect}
-              />
-            </div>
+            
           </TabsContent>
           <TabsContent value="collection">
             <div className="mb-8">
-              <div className="text-center mb-6">
+              {/* <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-foreground mb-2">Monasteries Collection</h2>
                 <h2></h2>
-              </div>
+              </div> */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {monasteries.map((monastery) => (
                   <MonasteryCard

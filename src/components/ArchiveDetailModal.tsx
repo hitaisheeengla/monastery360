@@ -29,7 +29,6 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
   const [imageScale, setImageScale] = useState(1);
   const [imageRotation, setImageRotation] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const { addMonastery } = useTripPlanner();
   const { toast } = useToast();
 
   if (!archive) return null;
@@ -50,41 +49,6 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
         title: "Download Restricted",
         description: "This archive item is not available for download.",
         variant: "destructive",
-      });
-    }
-  };
-
-  const handleAddToTrip = () => {
-    // Find related monastery and add to trip
-    const relatedMonastery = archive.relatedMonasteries[0];
-    if (relatedMonastery) {
-      // Mock monastery object - in real app, fetch from monasteries data
-      const mockMonastery = {
-        id: relatedMonastery.toLowerCase().replace(/\s+/g, '-'),
-        name: relatedMonastery,
-        location: 'Sikkim',
-        era: archive.century,
-        description: `Visit to view ${archive.title}`,
-        image: archive.thumbnail,
-        panoramaUrl: 'https://cdn.pannellum.org/2.5/examples/examplepano.jpg',
-        audioGuideUrl: '/placeholder.mp3',
-        coordinates: {
-          lat: 27.3389,
-          lng: 88.6065
-        },
-        gallery: [archive.highResImage],
-        historicalInfo: {
-          founded: archive.year,
-          significance: `Home to ${archive.title}`,
-          architecture: 'Traditional Tibetan architecture'
-        },
-        qrCode: '/placeholder.svg'
-      };
-      
-      addMonastery(mockMonastery);
-      toast({
-        title: "Added to Trip",
-        description: `${relatedMonastery} has been added to your itinerary.`,
       });
     }
   };
@@ -112,7 +76,7 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
                 <img
                   src={archive.highResImage}
                   alt={archive.title}
-                  className="w-full rounded-lg border-2 border-border/50 hover:border-primary/50 transition-colors"
+                  className="w-full h-96 rounded-lg border-2 border-border/50 hover:border-primary/50 transition-colors"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors rounded-lg flex items-center justify-center">
                   <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -129,15 +93,6 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
                 >
                   <Download className="h-4 w-4 mr-2" />
                   {archive.downloadable ? 'Download' : 'Restricted'}
-                </Button>
-                <Button
-                  variant="default"
-                  size="sm"
-                  onClick={handleAddToTrip}
-                  className="flex-1"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add to Trip
                 </Button>
               </div>
             </div>
@@ -231,7 +186,7 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
             {/* Controls */}
             <div className="flex justify-between items-center p-2 bg-background/80 backdrop-blur-sm rounded-lg mb-2">
               <h3 className="font-semibold truncate">{archive.title}</h3>
-              <div className="flex space-x-1">
+              <div className="flex space-x-1 mr-6 mt-3">
                 <Button size="sm" variant="outline" onClick={handleZoomOut}>
                   <ZoomOut className="h-4 w-4" />
                 </Button>
@@ -245,7 +200,8 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
             </div>
             
             {/* Image */}
-            <div className="flex-1 overflow-hidden flex items-center justify-center bg-muted/30 rounded-lg">
+            <div className="flex-1 overflow-hidden flex items-center justify-center bg-muted/30 rounded-lg"
+            style={{ maxHeight: '80vh', maxWidth: '90vw' }}>
               <img
                 src={archive.highResImage}
                 alt={archive.title}

@@ -48,20 +48,20 @@ const Archives = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-hero bg-clip-text text-transparent">
+        <div className="text-center mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
             Digital Archives
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Explore ancient manuscripts, murals, and historical documents from Sikkim's monasteries. 
-            Discover centuries of Buddhist wisdom and artistic heritage.
+            
           </p>
         </div>
 
         {/* Search */}
-        <div className="mb-8">
+        <div className="mb-2">
           <ArchiveSearch 
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -69,7 +69,7 @@ const Archives = () => {
         </div>
 
         {/* Filters */}
-        <div className="mb-8">
+        <div className="mb-3 p-0">
           <ArchiveFilters
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
@@ -81,7 +81,7 @@ const Archives = () => {
         </div>
 
         {/* Results Count */}
-        <div className="mb-6">
+        <div className="mb-3">
           <p className="text-sm text-muted-foreground">
             Showing {filteredArchives.length} of {archiveItems.length} archives
           </p>

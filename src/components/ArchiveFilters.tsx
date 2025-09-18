@@ -35,33 +35,13 @@ const ArchiveFilters: React.FC<ArchiveFiltersProps> = ({
   };
 
   return (
-    <div className="w-full bg-card rounded-lg border border-border p-6 shadow-cultural">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2">
-          <Filter className="h-5 w-5 text-primary" />
-          <h3 className="text-lg font-semibold">Filters</h3>
-          {activeFiltersCount > 0 && (
-            <Badge variant="secondary" className="ml-2">
-              {activeFiltersCount}
-            </Badge>
-          )}
-        </div>
-        {activeFiltersCount > 0 && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={clearAllFilters}
-            className="text-sm"
-          >
-            <X className="h-4 w-4 mr-1" />
-            Clear All
-          </Button>
-        )}
-      </div>
+    <div>
+    <div className="w-full bg-card rounded-lg border border-border p-3 pl-5 pr-5 shadow-cultural flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
 
       {/* Category Toggle Buttons */}
       <div className="mb-6">
-        <label className="text-sm font-medium text-foreground mb-3 block">
+        <label className="text-lg font-medium text-foreground mb-3 block">
           Category
         </label>
         <div className="flex flex-wrap gap-2">
@@ -77,47 +57,57 @@ const ArchiveFilters: React.FC<ArchiveFiltersProps> = ({
               {category.label}
             </Button>
           ))}
-        </div>
-      </div>
-
-      {/* Monastery and Century Dropdowns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="text-sm font-medium text-foreground mb-2 block">
-            Monastery
-          </label>
-          <Select value={selectedMonastery} onValueChange={setSelectedMonastery}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select monastery" />
-            </SelectTrigger>
-            <SelectContent>
-              {monasteryFilters.map((monastery) => (
-                <SelectItem key={monastery.id} value={monastery.id}>
-                  {monastery.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          
         </div>
 
-        <div>
-          <label className="text-sm font-medium text-foreground mb-2 block">
-            Time Period
-          </label>
-          <Select value={selectedCentury} onValueChange={setSelectedCentury}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select period" />
-            </SelectTrigger>
-            <SelectContent>
-              {centuryFilters.map((century) => (
-                <SelectItem key={century.id} value={century.id}>
-                  {century.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+
       </div>
+      <div className='mb-6'>
+        <label className="text-lg font-medium text-foreground mb-2 block">
+          Monastery
+        </label>
+        <Select value={selectedMonastery} onValueChange={setSelectedMonastery}>
+          <SelectTrigger className="w-auto min-w-[200px]">
+            <SelectValue placeholder="Select monastery" />
+          </SelectTrigger>
+          <SelectContent>
+            {monasteryFilters.map((monastery) => (
+              <SelectItem key={monastery.id} value={monastery.id}>
+                {monastery.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className='mb-6'>
+        <label className="text-lg font-medium text-foreground mb-2 block">
+          Time Period
+        </label>
+        <Select value={selectedCentury} onValueChange={setSelectedCentury}>
+          <SelectTrigger className="w-auto min-w-[200px]">
+            <SelectValue placeholder="Select period" />
+          </SelectTrigger>
+          <SelectContent>
+            {centuryFilters.map((century) => (
+              <SelectItem key={century.id} value={century.id}>
+                {century.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+    {activeFiltersCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={clearAllFilters}
+              className="text-sm"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Clear All
+            </Button>
+          )}
     </div>
   );
 };
