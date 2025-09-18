@@ -69,9 +69,9 @@ const TransportInfo = () => {
         <CardHeader>
           <CardTitle>Transport Information</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="flex flex-wrap gap-5">
           {transportOptions.map((option, index) => (
-            <div key={index} className="border rounded-lg p-4 space-y-4">
+            <div key={index} className="border rounded-lg p-4 space-y-4 md:w-full lg:w-[49%]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getTransportIcon(option.type)}
