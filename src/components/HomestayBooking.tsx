@@ -150,9 +150,9 @@ const HomestayBooking = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="">
       {/* Progress Bar */}
-      <Card>
+      {/* <Card>
         <CardContent className="pt-6">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
@@ -169,7 +169,7 @@ const HomestayBooking = () => {
             <Progress value={getProgressValue()} className="h-2" />
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Browse Homestays Step */}
       {bookingStep === 'browse' && (
@@ -180,11 +180,11 @@ const HomestayBooking = () => {
               Choose Your Homestay
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="flex flex-wrap gap-5">
             {homestays.map((homestay) => (
               <div 
                 key={homestay.id}
-                className="group border rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer hover:shadow-mountain bg-gradient-to-br from-card to-card/50"
+                className="group border rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer hover:shadow-mountain bg-gradient-to-br from-card to-card/50 md:w-full lg:w-[49%]"
                 onClick={() => handleHomestaySelection(homestay)}
               >
                 {/* Image Section */}

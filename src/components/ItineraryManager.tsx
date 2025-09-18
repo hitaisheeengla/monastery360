@@ -166,9 +166,10 @@ const ItineraryManager = () => {
     <div className="space-y-6">
       <Tabs defaultValue="list" className="space-y-4">
         <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="map">Map View</TabsTrigger>
           <TabsTrigger value="list">List View</TabsTrigger>
           <TabsTrigger value="days">Day-wise Plan</TabsTrigger>
-          <TabsTrigger value="map">Map View</TabsTrigger>
+          
         </TabsList>
 
         <TabsContent value="list" className="space-y-6">
@@ -360,6 +361,8 @@ const ItineraryManager = () => {
             </CardHeader>
             <CardContent>
               <InteractiveMap 
+                filteredMonasteries ={null}
+                isFiltered = {false}
                 monasteries={monasteries} 
                 onMonasterySelect={(monastery) => {
                   // Handle monastery selection if needed
