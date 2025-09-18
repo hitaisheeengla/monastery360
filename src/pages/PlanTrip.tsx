@@ -101,36 +101,22 @@ const PlanTrip = () => {
             </div>
 
             <TabsContent value="itinerary" className="space-y-6 animate-fade-in">
-              <Card className="bg-gradient-to-br from-card via-card to-primary/5 border-primary/20 shadow-monastery">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-2xl flex items-center gap-2">
-                        <MapPin className="h-6 w-6 text-primary" />
-                        Your Monastery Itinerary
-                      </CardTitle>
-                      <CardDescription className="text-lg mt-2">
-                        Manage your selected monasteries and events. Visit the Explore page to discover and add monasteries to your trip.
-                      </CardDescription>
-                    </div>
-                    {totalItems > 0 && (
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-primary">{totalItems}</div>
-                        <div className="text-sm text-muted-foreground">Total Items</div>
-                      </div>
-                    )}
-                  </div>
-                  <Separator className="mt-4" />
-                </CardHeader>
-              </Card>
-              <div className="animate-fade-in">
+              <Card className="bg-gradient-to-br from-card via-card to-primary/5 border-primary/20 shadow-monastery p-5">
+              {/* <CardHeader className="flex items-center justify-between px-6 py-4">
+                <div className="flex flex-col items-center gap-3">
+                  <MapPin className="h-7 w-7 text-indigo-600" />
+                  <CardTitle className="text-2xl text-indigo-700">My Itinerary</CardTitle>
+                </div>
+
+              </CardHeader> */}
                 <ItineraryManager />
-              </div>
+              </Card>
             </TabsContent>
+            
 
             <TabsContent value="routes" className="space-y-6 animate-fade-in">
-              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 shadow-cultural">
-                <CardHeader className="pb-4">
+              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 shadow-cultural p-5">
+                {/* <CardHeader className="pb-4">
                   <CardTitle className="text-2xl flex items-center gap-2">
                     <Route className="h-6 w-6 text-accent" />
                     Suggested Travel Routes
@@ -139,16 +125,17 @@ const PlanTrip = () => {
                     Optimized routes between your selected monasteries with distance, time, and cost estimates.
                   </CardDescription>
                   <Separator className="mt-4" />
-                </CardHeader>
-              </Card>
-              <div className="animate-fade-in">
+                </CardHeader> */}
                 <TravelRoutes />
-              </div>
+              </Card>
+
+                
+
             </TabsContent>
 
             <TabsContent value="transport" className="space-y-6 animate-fade-in">
-              <Card className="bg-gradient-to-br from-card via-card to-secondary/5 border-secondary/20 shadow-cultural mb-6">
-                <CardHeader className="pb-4">
+              <Card className="bg-gradient-to-br from-card via-card to-secondary/5 border-secondary/20 shadow-cultural mb-6 p-5">
+                {/* <CardHeader className="pb-4">
                   <CardTitle className="text-2xl flex items-center gap-2">
                     <Car className="h-6 w-6 text-secondary" />
                     Transport Information
@@ -157,16 +144,15 @@ const PlanTrip = () => {
                     Complete guide to transportation options, contacts, and booking information for your monastery visits.
                   </CardDescription>
                   <Separator className="mt-4" />
-                </CardHeader>
-              </Card>
-              <div className="animate-fade-in">
+                </CardHeader> */}
+              
                 <TransportInfo />
-              </div>
+              </Card>
             </TabsContent>
 
             <TabsContent value="homestays" className="space-y-6 animate-fade-in">
               <Card className="bg-gradient-to-br from-card via-card to-primary/5 border-primary/20 shadow-monastery mb-6">
-                <CardHeader className="pb-4">
+                {/* <CardHeader className="pb-4">
                   <CardTitle className="text-2xl flex items-center gap-2">
                     <Home className="h-6 w-6 text-primary" />
                     Homestay Booking
@@ -175,16 +161,16 @@ const PlanTrip = () => {
                     Discover and book authentic homestays near monasteries for an immersive cultural experience.
                   </CardDescription>
                   <Separator className="mt-4" />
-                </CardHeader>
-              </Card>
-              <div className="animate-fade-in">
+                </CardHeader> */}
+
                 <HomestayBooking />
-              </div>
+
+              </Card>
             </TabsContent>
 
             <TabsContent value="export" className="space-y-6 animate-fade-in">
-              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 shadow-cultural mb-6">
-                <CardHeader className="pb-4">
+              <Card className="bg-gradient-to-br from-card via-card to-accent/5 border-accent/20 shadow-cultural mb-6 p-5">
+                {/* <CardHeader className="pb-4">
                   <CardTitle className="text-2xl flex items-center gap-2">
                     <Download className="h-6 w-6 text-accent" />
                     Download Complete Package
@@ -193,11 +179,10 @@ const PlanTrip = () => {
                     Get your complete offline travel package with maps, contacts, and detailed itinerary information.
                   </CardDescription>
                   <Separator className="mt-4" />
-                </CardHeader>
-              </Card>
-              <div className="animate-fade-in">
+                </CardHeader> */}
+
                 <PDFExport />
-              </div>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>

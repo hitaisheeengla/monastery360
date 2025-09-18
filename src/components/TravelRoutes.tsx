@@ -74,7 +74,7 @@ const TravelRoutes = () => {
       {
         name: 'Scenic Route', 
         description: 'Beautiful mountain roads with photo stops',
-        monasteries: [...savedMonasteries.map(m => m.name), 'Viewpoints', 'Traditional villages'],
+        monasteries: [...savedMonasteries.map(m => m.name), 'Viewpoints'],
         totalDistance: `${savedMonasteries.length * 25} km`,
         totalDuration: `${Math.ceil(savedMonasteries.length * 75)} mins`,
         totalCost: `₹${savedMonasteries.length * 1200}`,
@@ -139,7 +139,7 @@ const TravelRoutes = () => {
           <TabsTrigger value="detailed">Step-by-Step</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="optimized" className="space-y-4">
+        <TabsContent value="optimized" className="space-y-4 w-full">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -147,11 +147,11 @@ const TravelRoutes = () => {
                 Optimized Route Plans
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-wrap w-full gap-5">
               {optimizedRoutes.map((route, index) => (
                 <div 
                   key={index} 
-                  className={`border rounded-lg p-4 cursor-pointer transition-all ${
+                  className={`border rounded-lg p-4 cursor-pointer transition-all md:w-full lg:w-[49%] ${
                     selectedRoute === ['direct', 'scenic', 'budget'][index] 
                       ? 'border-primary bg-primary/5' 
                       : 'hover:border-primary/50'
@@ -222,7 +222,7 @@ const TravelRoutes = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="detailed" className="space-y-4">
+        <TabsContent value="detailed" className="space-y-4 ">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
