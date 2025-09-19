@@ -11,7 +11,7 @@ import { JourneyStats } from '@/components/JourneyStats';
 import { CulturalTips } from '@/components/CulturalTips';
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MapPin, Play, Pause, Share, FileText, BarChart3, Camera, Compass, Book } from 'lucide-react';
@@ -134,6 +134,50 @@ const Journey = () => {
         ) : (
           /* Active Journey State */
           <div className="space-y-6">
+            {/* Upcoming Events Notification */}
+            {savedEvents.length > 0 && (
+              <Card className="bg-gradient-to-r from-monastery-saffron/10 to-monastery-gold/10 border-monastery-saffron/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-monastery-saffron">Upcoming Event Today</h3>
+                      <p className="text-sm text-muted-foreground">{savedEvents[0]?.title} at {savedEvents[0]?.location}</p>
+                    </div>
+                    <Badge variant="secondary" className="bg-monastery-saffron/20 text-monastery-saffron">
+                      {savedEvents[0]?.date.toLocaleDateString()}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Destination Search Bar */}
+            <Card>
+              <CardContent className="p-4">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    <h3 className="font-semibold">Select Destination</h3>
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="flex-1">
+                      <select className="w-full p-2 border rounded-md bg-background">
+                        <option value="">Choose a monastery...</option>
+                        {savedMonasteries.map((monastery) => (
+                          <option key={monastery.id} value={monastery.id}>
+                            {monastery.name} - {monastery.location}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <Button variant="outline">
+                      Navigate
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Enhanced Journey Dashboard */}
             <Tabs defaultValue="journey" className="w-full">
               <TabsList className="grid grid-cols-5 w-full">
