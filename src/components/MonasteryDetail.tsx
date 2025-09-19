@@ -60,25 +60,25 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-5xl h-[90vh] p-0">
-          <DialogHeader className="p-6 pb-0">
-            <div className="flex items-start justify-between p-2">
-              <div>
-                <DialogTitle className="text-2xl mb-2">{monastery.name}</DialogTitle>
-                <div className="flex items-center space-x-4 text-muted-foreground">
+        <DialogContent className="max-w-5xl max-h-[95vh] md:h-[90vh] p-0 mx-4">
+          <DialogHeader className="p-4 md:p-6 pb-0">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0 p-2">
+              <div className="flex-1">
+                <DialogTitle className="text-xl md:text-2xl mb-2 pr-4">{monastery.name}</DialogTitle>
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-muted-foreground">
                   <div className="flex items-center space-x-1">
                     <MapPin className="h-4 w-4" />
-                    <span>{monastery.location}</span>
+                    <span className="text-sm">{monastery.location}</span>
                   </div>
                   <Badge variant="outline">{monastery.era}</Badge>
                 </div>
               </div>
-              <div className="flex space-x-2 mt-2 mr-1">
-                <Button onClick={toggleAudio} variant="outline" size="sm">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+                <Button onClick={toggleAudio} variant="outline" size="sm" className="w-full sm:w-auto">
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  {isPlaying ? 'Pause' : 'Audio Tour'}
+                  <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
                 </Button>
-                <Button onClick={handleAddToTrip} variant="monastery" size="sm">
+                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto">
                   <Plus className="h-4 w-4 mr-1" />
                   Add to Trip
                 </Button>
@@ -89,30 +89,32 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
           {/* ✅ Hidden audio element */}
           <audio ref={audioRef} src={tourAudio} preload="auto" />
 
-          <div className="flex-1 overflow-y-auto p-6 pt-0">
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 pt-0">
 
             <Tabs defaultValue="tour" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="tour" className="flex items-center space-x-2">
-                  <Camera className="h-4 w-4" />
-                  <span>360° Tour</span>
+                <TabsTrigger value="tour" className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm">
+                  <Camera className="h-3 w-3 md:h-4 md:w-4" />
+                  <span className="hidden sm:inline">360° Tour</span>
+                  <span className="sm:hidden">Tour</span>
                 </TabsTrigger>
-                <TabsTrigger value="info" className="flex items-center space-x-2">
-                  <Info className="h-4 w-4" />
-                  <span>History</span>
+                <TabsTrigger value="info" className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm">
+                  <Info className="h-3 w-3 md:h-4 md:w-4" />
+                  <span className="hidden sm:inline">History</span>
+                  <span className="sm:hidden">Info</span>
                 </TabsTrigger>
-                <TabsTrigger value="gallery" className="flex items-center space-x-2">
-                  <ImageIcon className="h-4 w-4" />
+                <TabsTrigger value="gallery" className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm">
+                  <ImageIcon className="h-3 w-3 md:h-4 md:w-4" />
                   <span>Gallery</span>
                 </TabsTrigger>
               </TabsList>
               {/* ✅ Wrapper with margin so TabsList doesn't shift */}
-              <div className="mt-6 min-h-[450px]">
+              <div className="mt-4 md:mt-6 min-h-[300px] md:min-h-[450px]">
                 <TabsContent value="tour">
                   <div className="relative flex justify-center">
                     <Pannellum
-                      width="95%"
-                      height="400px"
+                      width="100%"
+                      height="300px"
                       image={monastery.panoramaUrl}
                       pitch={10}
                       yaw={180}
@@ -121,11 +123,15 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                       showControls
                       showFullscreenCtrl
                       showZoomCtrl
+                      style={{ 
+                        maxHeight: '400px',
+                        height: 'clamp(250px, 50vh, 400px)'
+                      }}
                     />
                     {isPlaying && (
-                      <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 flex items-center space-x-2">
-                        <Volume2 className="h-4 w-4 text-monastery-red animate-pulse" />
-                        <span className="text-sm font-medium">Narrated Tour Playing</span>
+                      <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-background/90 backdrop-blur-sm rounded-lg p-2 md:p-3 flex items-center space-x-1 md:space-x-2">
+                        <Volume2 className="h-3 w-3 md:h-4 md:w-4 text-monastery-red animate-pulse" />
+                        <span className="text-xs md:text-sm font-medium">Narrated Tour Playing</span>
                       </div>
                     )}
                   </div>
@@ -153,7 +159,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                 </TabsContent>
 
                 <TabsContent value="gallery">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                     {monastery.gallery.map((image, index) => (
                       <div
                         key={index}
@@ -163,10 +169,10 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                         <img
                           src={image}
                           alt={`${monastery.name} - Image ${index + 1}`}
-                          className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-24 sm:h-32 object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <ImageIcon className="h-6 w-6 text-white" />
+                          <ImageIcon className="h-4 w-4 md:h-6 md:w-6 text-white" />
                         </div>
                       </div>
                     ))}
@@ -181,11 +187,11 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
       {/* Image Viewer Modal */}
       {selectedImage && (
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="max-w-4xl">
+          <DialogContent className="max-w-4xl mx-4">
             <img
               src={selectedImage}
               alt="Gallery image"
-              className="w-full h-auto rounded-lg p-2"
+              className="w-full h-auto rounded-lg p-1 md:p-2"
             />
           </DialogContent>
         </Dialog>
