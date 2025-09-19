@@ -8,8 +8,6 @@ import { JourneyTimeline } from '@/components/JourneyTimeline';
 import { ContextualSuggestions } from '@/components/ContextualSuggestions';
 import { SmallWeatherModal } from '@/components/JourneyWeather';
 import { JourneyStats } from '@/components/JourneyStats';
-import { PhotoJournal } from '@/components/PhotoJournal';
-import { NearbyAmenities } from '@/components/NearByAmenities';
 import { CulturalTips } from '@/components/CulturalTips';
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { Button } from '@/components/ui/button';
