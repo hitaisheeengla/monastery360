@@ -1,43 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Navigation, Car, MapPin, Clock, Route } from 'lucide-react';
-import { Monastery } from '@/data/monasteries';
+import React, { useEffect, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Popup,
+} from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Navigation, Car, MapPin, Clock, Route } from "lucide-react";
+import { Monastery } from "@/data/monasteries";
+
+// Default Leaflet icon
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+
+const defaultIcon = new L.Icon({
+  iconUrl,
+  iconRetinaUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 interface JourneyMapProps {
   monasteries: Monastery[];
   currentLocation: { lat: number; lng: number } | null;
-  travelMode: 'driving' | 'walking';
-  onTravelModeChange: (mode: 'driving' | 'walking') => void;
+  travelMode: "driving" | "walking";
+  onTravelModeChange: (mode: "driving" | "walking") => void;
 }
 
 export const JourneyMap: React.FC<JourneyMapProps> = ({
   monasteries,
   currentLocation,
   travelMode,
-  onTravelModeChange
+  onTravelModeChange,
 }) => {
+  const [routeCoords, setRouteCoords] = useState<[number, number][]>([]);
   const [routeInfo, setRouteInfo] = useState({
-    totalDistance: '45.2 km',
-    totalDuration: '1h 23m',
-    nextDestination: monasteries[0]?.name || 'No destination',
-    eta: '2:45 PM'
+    totalDistance: "0 km",
+    totalDuration: "0 min",
+    nextDestination: monasteries[0]?.name || "No destination",
+    eta: "--:--",
   });
 
-  // Mock route calculation
+const center: [number, number] =
+  currentLocation
+    ? [currentLocation.lat, currentLocation.lng] // convert object → tuple
+    : monasteries.length > 0
+      ? [monasteries[0].coordinates.lat, monasteries[0].coordinates.lng]
+      : [27.5333, 88.6167];
+
+  // Fetch real route from OSRM
   useEffect(() => {
-    if (monasteries.length > 0) {
-      const distances = travelMode === 'driving' ? [15, 12, 18] : [8, 6, 10];
-      const durations = travelMode === 'driving' ? ['25m', '20m', '30m'] : ['45m', '35m', '55m'];
-      
-      setRouteInfo({
-        totalDistance: `${distances.reduce((a, b) => a + b, 0)} km`,
-        totalDuration: travelMode === 'driving' ? '1h 15m' : '2h 15m',
-        nextDestination: monasteries[0]?.name || 'No destination',
-        eta: travelMode === 'driving' ? '2:45 PM' : '4:15 PM'
-      });
-    }
+    if (monasteries.length < 2) return;
+
+    const coordsStr = monasteries
+      .map((m) => `${m.coordinates.lng},${m.coordinates.lat}`)
+      .join(";");
+
+    const fetchRoute = async () => {
+      try {
+        const res = await fetch(
+          `https://router.project-osrm.org/route/v1/${travelMode}/${coordsStr}?geometries=geojson&overview=full&steps=true`
+        );
+        const data = await res.json();
+
+        if (data.routes && data.routes.length > 0) {
+          const route = data.routes[0];
+
+          const coords = route.geometry.coordinates.map(
+            (c: [number, number]) => [c[1], c[0]] as [number, number]
+          );
+
+          const distanceKm = (route.distance / 1000).toFixed(1);
+          const durationMin = Math.round(route.duration / 60);
+
+          setRouteCoords(coords);
+          setRouteInfo({
+            totalDistance: `${distanceKm} km`,
+            totalDuration: `${durationMin} min`,
+            nextDestination: monasteries[1]?.name || monasteries[0]?.name,
+            eta: new Date(Date.now() + route.duration * 1000).toLocaleTimeString(
+              [],
+              { hour: "2-digit", minute: "2-digit" }
+            ),
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching route:", err);
+      }
+    };
+
+    fetchRoute();
   }, [monasteries, travelMode]);
 
   return (
@@ -48,18 +108,18 @@ export const JourneyMap: React.FC<JourneyMapProps> = ({
           <h3 className="text-lg font-semibold">Journey Route</h3>
           <div className="flex space-x-2">
             <Button
-              variant={travelMode === 'driving' ? 'default' : 'outline'}
+              variant={travelMode === "driving" ? "default" : "outline"}
               size="sm"
-              onClick={() => onTravelModeChange('driving')}
+              onClick={() => onTravelModeChange("driving")}
               className="flex items-center space-x-2"
             >
               <Car className="h-4 w-4" />
               <span>Drive</span>
             </Button>
             <Button
-              variant={travelMode === 'walking' ? 'default' : 'outline'}
+              variant={travelMode === "walking" ? "default" : "outline"}
               size="sm"
-              onClick={() => onTravelModeChange('walking')}
+              onClick={() => onTravelModeChange("walking")}
               className="flex items-center space-x-2"
             >
               <Navigation className="h-4 w-4" />
@@ -71,15 +131,21 @@ export const JourneyMap: React.FC<JourneyMapProps> = ({
         {/* Route Summary */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary">{routeInfo.totalDistance}</div>
+            <div className="text-2xl font-bold text-primary">
+              {routeInfo.totalDistance}
+            </div>
             <div className="text-sm text-muted-foreground">Total Distance</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary">{routeInfo.totalDuration}</div>
+            <div className="text-2xl font-bold text-primary">
+              {routeInfo.totalDuration}
+            </div>
             <div className="text-sm text-muted-foreground">Duration</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary">{monasteries.length}</div>
+            <div className="text-2xl font-bold text-primary">
+              {monasteries.length}
+            </div>
             <div className="text-sm text-muted-foreground">Stops</div>
           </div>
           <div className="text-center">
@@ -89,110 +155,59 @@ export const JourneyMap: React.FC<JourneyMapProps> = ({
         </div>
       </Card>
 
-      {/* Mock Map Container */}
+      {/* Real Map */}
       <Card className="p-0 overflow-hidden">
-        <div className="relative h-96 bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900/20 dark:to-blue-900/20">
-          {/* Mock Map Background */}
-          <div className="absolute inset-0 opacity-30">
-            <svg width="100%" height="100%" viewBox="0 0 400 300">
-              {/* Mock roads */}
-              <path d="M0,150 Q100,100 200,150 T400,150" stroke="#666" strokeWidth="2" fill="none" />
-              <path d="M50,0 L50,300" stroke="#666" strokeWidth="1" fill="none" />
-              <path d="M200,0 L200,300" stroke="#666" strokeWidth="1" fill="none" />
-              <path d="M350,0 L350,300" stroke="#666" strokeWidth="1" fill="none" />
-            </svg>
-          </div>
+        <MapContainer
+          center={center}
+          zoom={9}
+          style={{ height: "60vh", width: "100%" , zIndex:1 }}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
           {/* Current Location */}
           {currentLocation && (
-            <div className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse shadow-lg border-2 border-white" />
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-medium bg-white dark:bg-gray-800 px-2 py-1 rounded shadow">
-                You
-              </div>
-            </div>
+            <Marker
+              position={[currentLocation.lat, currentLocation.lng]}
+              icon={
+                new L.Icon({
+                  iconUrl:
+                    "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+                  iconSize: [30, 30],
+                  iconAnchor: [15, 30],
+                })
+              }
+            >
+              <Popup>You are here</Popup>
+            </Marker>
           )}
 
           {/* Monastery Markers */}
-          {monasteries.slice(0, 3).map((monastery, index) => (
-            <div
-              key={monastery.id}
-              className={`absolute transform -translate-x-1/2 -translate-y-1/2 ${
-                index === 0 ? 'top-1/3 right-1/4' : 
-                index === 1 ? 'top-2/3 left-1/2' : 'top-1/4 right-1/3'
-              }`}
+          {monasteries.map((m) => (
+            <Marker
+              key={m.id}
+              position={[m.coordinates.lat, m.coordinates.lng]}
+              icon={defaultIcon}
             >
-              <div className="relative">
-                <MapPin className="w-6 h-6 text-monastery-red fill-current" />
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-medium bg-white dark:bg-gray-800 px-2 py-1 rounded shadow max-w-20 text-center">
-                  {monastery.name.split(' ')[0]}
-                </div>
-              </div>
-            </div>
+              <Popup>
+                <strong>{m.name}</strong>
+                <br />
+                {m.location}
+              </Popup>
+            </Marker>
           ))}
 
           {/* Route Line */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <path
-              d="M100,150 Q200,100 300,120 T380,100"
-              stroke="#dc2626"
-              strokeWidth="3"
-              strokeDasharray="5,5"
-              fill="none"
-              className="animate-pulse"
+          {routeCoords.length > 0 && (
+            <Polyline
+              positions={routeCoords}
+              pathOptions={{ color: "red", weight: 5 }}
             />
-          </svg>
-
-          {/* Next Turn Indicator */}
-          <div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg">
-            <div className="flex items-center space-x-2">
-              <Route className="h-5 w-5 text-primary" />
-              <div className="text-sm">
-                <div className="font-medium">Next: Turn right</div>
-                <div className="text-muted-foreground">in 800m on NH10</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Current Status */}
-          <div className="absolute top-4 left-4 right-4">
-            <Card className="p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Clock className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">
-                    {travelMode === 'driving' ? 'Driving' : 'Walking'} to {routeInfo.nextDestination}
-                  </span>
-                </div>
-                <Badge variant="secondary">ETA: {routeInfo.eta}</Badge>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </Card>
-
-      {/* Route Instructions */}
-      <Card className="p-4">
-        <h4 className="font-semibold mb-3">Step-by-Step Directions</h4>
-        <div className="space-y-3">
-          {[
-            { instruction: "Head northeast on MG Road", distance: "1.2 km", duration: "3 min" },
-            { instruction: "Turn right onto NH10 toward Ranka", distance: "8.5 km", duration: "12 min" },
-            { instruction: "Continue straight to Rumtek Monastery", distance: "5.3 km", duration: "8 min" }
-          ].map((step, index) => (
-            <div key={index} className="flex items-center space-x-3 p-2 rounded-lg bg-muted/50">
-              <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                {index + 1}
-              </div>
-              <div className="flex-1">
-                <div className="font-medium">{step.instruction}</div>
-                <div className="text-sm text-muted-foreground">
-                  {step.distance} • {step.duration}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+          )}
+        </MapContainer>
       </Card>
     </div>
   );

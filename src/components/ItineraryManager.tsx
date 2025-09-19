@@ -26,6 +26,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import RouteMap from './mapbw';
 
 // Sortable item component for monasteries
 const SortableMonasteryItem = ({ monastery, index, onRemove }: { 
@@ -360,7 +361,11 @@ const ItineraryManager = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <InteractiveMap 
+              <RouteMap 
+
+      monasteries={monasteries}
+    />
+              {/* <InteractiveMap 
                 filteredMonasteries ={null}
                 isFiltered = {false}
                 monasteries={monasteries} 
@@ -368,7 +373,7 @@ const ItineraryManager = () => {
                   // Handle monastery selection if needed
                   console.log('Selected monastery:', monastery);
                 }} 
-              />
+              /> */}
             </CardContent>
           </Card>
         </TabsContent>
