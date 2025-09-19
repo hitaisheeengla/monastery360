@@ -156,19 +156,31 @@ const EventCalendar = () => {
                   {culturalEvents
                     .filter(event => event.date >= new Date())
                     .sort((a, b) => a.date.getTime() - b.date.getTime())
-                    .slice(0, 5)
                     .map(event => (
-                    <div key={event.id} className="p-3 border rounded-lg hover:bg-muted/50 cursor-pointer"
+                    <Card key={event.id} className="p-4 hover:shadow-md transition-shadow cursor-pointer"
                          onClick={() => setSelectedEvent(event)}>
-                      <div className="font-medium text-sm">{event.title}</div>
-                      <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="font-medium text-sm">{event.title}</div>
+                        <Badge className={`${getCategoryColor(event.category)} text-xs`}>
+                          {event.category}
+                        </Badge>
+                      </div>
+                      <div className="text-xs text-muted-foreground flex items-center gap-1 mb-2">
                         <CalendarIcon className="h-3 w-3" />
                         {event.date.toLocaleDateString()}
                       </div>
-                      <Badge className={`${getCategoryColor(event.category)} text-xs mt-1`}>
-                        {event.category}
-                      </Badge>
-                    </div>
+                      <div className="text-xs text-muted-foreground flex items-center gap-1 mb-2">
+                        <MapPin className="h-3 w-3" />
+                        {event.location}
+                      </div>
+                      <div className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {event.timings}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
+                        {event.description}
+                      </p>
+                    </Card>
                   ))}
                 </div>
               </div>

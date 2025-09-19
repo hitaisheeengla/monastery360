@@ -6,7 +6,11 @@ import MonasteryCard from '@/components/MonasteryCard';
 import MonasteryDetail from '@/components/MonasteryDetail';
 import { Monastery } from '@/data/monasteries';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Landmark, Sparkles, Eye, Navigation } from 'lucide-react';
+import { MapPin, Landmark, Eye, Navigation } from 'lucide-react';
+import Map from '@/components/map';
+
+// import "mapbox-gl/dist/mapbox-gl.css";
+
 
 
 const Explore = () => {
@@ -63,14 +67,19 @@ const Explore = () => {
 
         <Tabs defaultValue="map" className="mb-8 ">
           <div className='w-auto inline-flex'>
-            <TabsList className="w-full h-12 flex justify-center mb-1">
-              <TabsTrigger value="map" className='text-lg'>
-                <MapPin className="mr-2 h-5 w-5 text-monastery-red" />
-                Interactive Monastery Map
-              </TabsTrigger>
-              <TabsTrigger value="collection" className='text-lg'>
-                <Landmark className="mr-2 h-5 w-5 text-monastery-red" />
-                Monasteries Collection
+          <TabsList className="w-full h-12 flex justify-center mb-1">
+            <TabsTrigger value="map" className='lg:text-lg  text-sm'>
+              <MapPin className="mr-2 h-5 w-5  text-monastery-red" />
+              <div className="hidden md:block">
+  Interactive Monastery Map
+</div>
+              
+            </TabsTrigger>
+            <TabsTrigger value="collection" className='lg:text-lg  text-sm'>
+              <Landmark className="mr-2 h-5 w-5 text-monastery-red" />
+              <div className="hidden md:block">
+  Monasteries Collection
+</div>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -86,12 +95,8 @@ const Explore = () => {
                 setEraFilter={setEraFilter}
               />
             </div>
-  <InteractiveMap
-    monasteries={filteredMonasteries}
-    filteredMonasteries={filteredMonasteries}
-    isFiltered={isFiltered}
-    onMonasterySelect={handleMonasterySelect}
-  />
+            <Map monasteries={monasteries}/>
+            
           </TabsContent>
           <TabsContent value="collection">
             <div className="mb-8">
@@ -99,6 +104,7 @@ const Explore = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-2">Monasteries Collection</h2>
                 <h2></h2>
               </div> */}
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {monasteries.map((monastery) => (
                   <MonasteryCard

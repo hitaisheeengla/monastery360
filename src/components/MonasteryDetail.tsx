@@ -63,22 +63,22 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
         <DialogContent className="max-w-5xl max-h-[95vh] md:h-[90vh] p-0 mx-4">
           <DialogHeader className="p-4 md:p-6 pb-0">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0 p-2">
-              <div className='flex-1'>
+              <div className="flex-1">
                 <DialogTitle className="text-xl md:text-2xl mb-2 pr-4">{monastery.name}</DialogTitle>
                 <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-muted-foreground">
                   <div className="flex items-center space-x-1">
                     <MapPin className="h-4 w-4" />
-                    <span>{monastery.location}</span>
+                    <span className="text-sm">{monastery.location}</span>
                   </div>
                   <Badge variant="outline">{monastery.era}</Badge>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+              <div className="flex space-x-2 mt-2 mr-1">
                 <Button onClick={toggleAudio} variant="outline" size="sm">
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
                 </Button>
-                <Button onClick={handleAddToTrip} variant="monastery" size="sm">
+                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto">
                   <Plus className="h-4 w-4 mr-1" />
                   Add to Trip
                 </Button>
