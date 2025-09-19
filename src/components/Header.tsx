@@ -72,8 +72,13 @@ const Header = () => {
               <option value="Hindi">हिंदी</option>
               <option value="Nepali">नेपाली</option>
             </select> */}
-            <Button variant="outline">Sign In</Button>
-            <Button>Sign Up</Button>
+            <Link to="/login">
+    <Button variant="outline">Sign In</Button>
+  </Link>
+  <Link to="/signup">
+  <Button> Sign Up</Button>
+  </Link>
+            
           </div>
 
           {/* Mobile Menu Button */}

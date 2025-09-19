@@ -51,7 +51,7 @@ const Archives = () => {
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="text-center mb-4">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero h-14 bg-clip-text text-transparent mb-2">
             Digital Archives
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">

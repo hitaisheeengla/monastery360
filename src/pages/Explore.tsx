@@ -6,10 +6,7 @@ import MonasteryCard from '@/components/MonasteryCard';
 import MonasteryDetail from '@/components/MonasteryDetail';
 import { Monastery } from '@/data/monasteries';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Landmark, Eye, Navigation } from 'lucide-react';
-
-import "mapbox-gl/dist/mapbox-gl.css";
-
+import { MapPin, Landmark, Sparkles, Eye, Navigation } from 'lucide-react';
 
 
 const Explore = () => {
@@ -47,9 +44,15 @@ const Explore = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4">
-            Explore Sacred Monasteries
-          </h1>
+
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-amber-400 bg-clip-text text-transparent">
+              Explore Sacred Monasteries
+            </h1>
+            <Sparkles className="h-8 w-8 text-amber-400 animate-pulse" />
+          </div>
+
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover the spiritual heritage of Sikkim through immersive virtual tours,
             historical insights, and interactive exploration.
@@ -60,16 +63,16 @@ const Explore = () => {
 
         <Tabs defaultValue="map" className="mb-8 ">
           <div className='w-auto inline-flex'>
-          <TabsList className="w-full h-12 flex justify-center mb-1">
-            <TabsTrigger value="map" className='text-lg'>
-              <MapPin className="mr-2 h-5 w-5 text-monastery-red" />
-              Interactive Monastery Map
-            </TabsTrigger>
-            <TabsTrigger value="collection" className='text-lg'>
-              <Landmark className="mr-2 h-5 w-5 text-monastery-red" />
-              Monasteries Collection
+            <TabsList className="w-full h-12 flex justify-center mb-1">
+              <TabsTrigger value="map" className='text-lg'>
+                <MapPin className="mr-2 h-5 w-5 text-monastery-red" />
+                Interactive Monastery Map
               </TabsTrigger>
-          </TabsList>
+              <TabsTrigger value="collection" className='text-lg'>
+                <Landmark className="mr-2 h-5 w-5 text-monastery-red" />
+                Monasteries Collection
+              </TabsTrigger>
+            </TabsList>
           </div>
           <TabsContent value="map">
             {/* Search & Filters */}
@@ -83,7 +86,12 @@ const Explore = () => {
                 setEraFilter={setEraFilter}
               />
             </div>
-            
+  <InteractiveMap
+    monasteries={filteredMonasteries}
+    filteredMonasteries={filteredMonasteries}
+    isFiltered={isFiltered}
+    onMonasterySelect={handleMonasterySelect}
+  />
           </TabsContent>
           <TabsContent value="collection">
             <div className="mb-8">

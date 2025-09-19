@@ -14,24 +14,24 @@ export const culturalEvents: CulturalEvent[] = [
   {
     id: 'bumchu-festival',
     title: 'Bumchu Festival',
-    date: new Date(2025, 1, 14), // February 14, 2025
+    date: new Date("2025-10-14"), // February 14, 2025
     location: 'Tashiding Monastery',
     monastery: 'tashiding',
     description: 'Sacred festival where the holy water vase (Bumchu) is opened to predict the year ahead.',
     timings: '6:00 AM - 6:00 PM',
     category: 'festival',
-    image: '/api/placeholder/400/250'
+    image: 'https://tse1.mm.bing.net/th/id/OIP.3Hr8ePYAKXX4XayVJ7CDCwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3'
   },
   {
     id: 'cham-dance',
     title: 'Cham Dance Festival',
-    date: new Date(2025, 2, 18), // March 18, 2025
+    date: new Date("2025-10-18"), // March 18, 2025
     location: 'Enchey Monastery',
     monastery: 'enchey',
     description: 'Traditional masked dance performed by monks representing the victory of good over evil.',
     timings: '10:00 AM - 4:00 PM',
     category: 'festival',
-    image: '/api/placeholder/400/250'
+    image: 'https://wondersoftibet.com/wp-content/uploads/2020/07/Tibetan-Cham-Dance-1024x683.jpg'
   },
   {
     id: 'butter-lamp-ceremony',

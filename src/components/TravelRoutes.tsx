@@ -15,7 +15,7 @@ interface RouteInfo {
   cost: string;
   difficulty: 'easy' | 'moderate' | 'challenging';
   highlights: string[];
-  mapUrl?: string;
+  mapUrl: string;
 }
 
 interface OptimizedRoute {

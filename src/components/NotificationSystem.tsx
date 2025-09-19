@@ -14,7 +14,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-24 left-4 right-4 z-40 animate-slide-in-right">
+    <div className="fixed bottom-1 left-4 right-4 z-40 animate-slide-in-right">
       <div className="bg-monastery-red text-white rounded-lg shadow-2xl p-4 border border-monastery-red/30">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center space-x-2">
@@ -53,7 +53,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
           <Button
             size="sm"
             variant="outline"
-            className="flex-1 border-white text-white hover:bg-white/20"
+            className="flex-1 border-white bg-white text-monastery-red hover:bg-white/90 font-medium"
           >
             <Navigation className="h-4 w-4 mr-2" />
             View Directions

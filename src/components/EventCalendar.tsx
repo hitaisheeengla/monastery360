@@ -109,7 +109,7 @@ const EventCalendar = () => {
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="flex-1">
-              <div className="h-[600px]">
+              <div className="h-[400px] w-auto">
                 <Calendar
                   localizer={localizer}
                   events={calendarEvents}
@@ -187,7 +187,7 @@ const EventCalendar = () => {
               <img 
                 src={selectedEvent.image} 
                 alt={selectedEvent.title}
-                className="w-full h-48 object-cover rounded-lg"
+                className="w-full h-48 object-cover object-top rounded-lg"
               />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

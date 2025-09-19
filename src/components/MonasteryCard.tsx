@@ -10,13 +10,13 @@ import { useTripPlanner } from '@/hooks/useTripPlanner';
 
 
 interface MonasteryCardProps {
-  monastery: Monastery;
+  monastery: Monastery | null;
   onViewDetails: (monastery: Monastery) => void;
 }
 const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, onViewDetails }) => {
   const { toast } = useToast();
   const { addMonastery } = useTripPlanner();
-  const handleAddToTrip = (monastery) => {
+  const handleAddToTrip = () => {
     addMonastery(monastery);
     toast({
       title: "Added to Trip!",

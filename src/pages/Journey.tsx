@@ -9,14 +9,14 @@ import { ContextualSuggestions } from '@/components/ContextualSuggestions';
 import { SmallWeatherModal } from '@/components/JourneyWeather';
 import { JourneyStats } from '@/components/JourneyStats';
 import { PhotoJournal } from '@/components/PhotoJournal';
-import { NearbyAmenities } from '@/components/NearByAmenities';
+// import { NearbyAmenities } from '@/components/NearByAmenities';
 import { CulturalTips } from '@/components/CulturalTips';
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Play, Pause, Share, FileText, BarChart3, Camera, Compass, Book } from 'lucide-react';
+import { MapPin, Play, Pause,Headphones, Share, FileText, BarChart3, Camera, Compass, Book } from 'lucide-react';
 import { BookingStatus } from '@/components/Booking';
 
 const Journey = () => {
@@ -44,13 +44,13 @@ const Journey = () => {
   };
 
   const handleStartJourney = () => {
-    if (savedMonasteries.length === 0) {
-      alert("Please add monasteries to your trip planner first!");
-      return;
-    }
-    setIsJourneyActive(true);
-    mockGPSDetection();
-  };
+  if (savedMonasteries.length < 2) {
+    alert("Please add at least 2 monasteries to your trip planner to begin the journey!");
+    return;
+  }
+  setIsJourneyActive(true);
+  mockGPSDetection();
+};
 
   const currentDestination = savedMonasteries[currentStep] || null;
   const nextDestination = savedMonasteries[currentStep + 1] || null;
@@ -138,22 +138,18 @@ const Journey = () => {
           <div className="space-y-6">
             {/* Enhanced Journey Dashboard */}
             <Tabs defaultValue="journey" className="w-full">
-              <TabsList className="grid grid-cols-5 w-full">
+              <TabsList className="grid grid-cols-4 w-full">
                 <TabsTrigger value="journey" className="flex items-center space-x-1">
                   <MapPin className="h-4 w-4" />
                   <span className="hidden sm:inline">Journey</span>
                 </TabsTrigger>
-                <TabsTrigger value="stats" className="flex items-center space-x-1">
-                  <BarChart3 className="h-4 w-4" />
-                  <span className="hidden sm:inline">Stats</span>
-                </TabsTrigger>
                 <TabsTrigger value="photos" className="flex items-center space-x-1">
-                  <Camera className="h-4 w-4" />
+                  <Headphones className="h-4 w-4" />
                   <span className="hidden sm:inline">Audio Guide</span>
                 </TabsTrigger>
                 <TabsTrigger value="explore" className="flex items-center space-x-1">
                   <Compass className="h-4 w-4" />
-                  <span className="hidden sm:inline">Weather</span>
+                  <span className="hidden sm:inline">Your Bookings</span>
                 </TabsTrigger>
                 <TabsTrigger value="tips" className="flex items-center space-x-1">
                   <Book className="h-4 w-4" />
@@ -185,7 +181,7 @@ const Journey = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="stats" className="space-y-6">
+              {/* <TabsContent value="stats" className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <JourneyTimeline
                     monasteries={savedMonasteries}
@@ -196,7 +192,7 @@ const Journey = () => {
                   <JourneyStats />
 
                 </div>
-              </TabsContent>
+              </TabsContent> */}
 
               <TabsContent value="photos" className="space-y-6">
                 <div className="flex justify-center items-center">
