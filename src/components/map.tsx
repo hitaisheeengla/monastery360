@@ -51,51 +51,55 @@ const center: [number, number] = [27.5333, 88.6167];
 
 const Map: React.FC<MapProps> = ({ monasteries }) => {
   return (
-    <div className="bg-card rounded-lg p-6 shadow-cultural mb-8 flex">
-
-    <div style={{ height: '50vh' }} className='flex justify-center items-center '>
-      <MapContainer center={center} zoom={9} style={{ height: '100%', width: '100%', zIndex: 1, borderRadius: '20px' }} scrollWheelZoom={false}
-        whenCreated={(map) => {
-          map.on("click", () => map.scrollWheelZoom.enable());
-          map.on("mouseout", () => map.scrollWheelZoom.disable());
-        }}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {monasteries.map((monastery) => (
-          <Marker key={monastery.id} position={monastery.coordinates} icon={defaultIcon}>
-            <Popup>
-              <strong>{monastery.name}</strong>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
-
-    {/* Right-side Cards */ }
-
-    <div className="w-1/3 h-96 overflow-y-auto space-y-4">
-      {monasteries.map((monastery) => (
-        <Card
-          key={monastery.id}
-          className="shadow-md cursor-pointer hover:border-monastery-red/40 transition"
-          onClick={() => {}}
+   <div className="bg-card rounded-lg p-6 shadow-cultural mb-8 flex flex-col lg:flex-row gap-6">
+  {/* Map Section */}
+  <div className="w-full md:w-2/3">
+        <MapContainer
+          center={center}
+          zoom={9}
+          style={{ height: "100%", width: "100%", borderRadius: "20px", zIndex: 1 }}
+          scrollWheelZoom={false}
+          whenCreated={(map) => {
+            map.on("click", () => map.scrollWheelZoom.enable());
+            map.on("mouseout", () => map.scrollWheelZoom.disable());
+          }}
         >
-          <CardContent className="p-4">
-            <h4 className="font-semibold text-base">{monastery.name}</h4>
-            <p className="text-xs text-muted-foreground mb-1">{monastery.location}</p>
-            <p className="text-sm line-clamp-2">{monastery.description}</p>
-          </CardContent>
-        </Card>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {monasteries.map((monastery) => (
+        <Marker
+          key={monastery.id}
+          position={[monastery.coordinates.lat, monastery.coordinates.lng]}
+          icon={defaultIcon}
+        >
+          <Popup>
+            <strong>{monastery.name}</strong>
+          </Popup>
+        </Marker>
       ))}
-    </div>
+    </MapContainer>
+  </div>
 
-    <div className="mt-4 text-sm text-muted-foreground text-center">
-      📍 {monasteries.length} monasteries • Click markers or list items for details
-    </div>
-      
-    </div >
+  {/* Right-side Cards */}
+  <div className="w-full lg:w-1/3 max-h-[50vh] lg:max-h-[54vh] overflow-y-auto space-y-4">
+    {monasteries.map((monastery) => (
+      <Card
+        key={monastery.id}
+        className="shadow-md cursor-pointer hover:border-monastery-red/40 transition"
+        onClick={() => {}}
+      >
+        <CardContent className="p-4">
+          <h4 className="font-semibold text-base">{monastery.name}</h4>
+          <p className="text-xs text-muted-foreground mb-1">{monastery.location}</p>
+          <p className="text-sm line-clamp-2">{monastery.description}</p>
+        </CardContent>
+      </Card>
+    ))}
+  </div>
+</div>
+
 
   );
 };
