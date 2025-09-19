@@ -6,7 +6,7 @@ import MonasteryCard from '@/components/MonasteryCard';
 import MonasteryDetail from '@/components/MonasteryDetail';
 import { Monastery } from '@/data/monasteries';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Landmark, Eye, Navigation } from 'lucide-react';
+import { MapPin, Landmark, Sparkles, Eye, Navigation } from 'lucide-react';
 import Map from '@/components/map';
 
 // import "mapbox-gl/dist/mapbox-gl.css";

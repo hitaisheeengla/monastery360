@@ -73,8 +73,8 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                   <Badge variant="outline">{monastery.era}</Badge>
                 </div>
               </div>
-              <div className="flex space-x-2 mt-2 mr-1">
-                <Button onClick={toggleAudio} variant="outline" size="sm">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+                <Button onClick={toggleAudio} variant="outline" size="sm" className="w-full sm:w-auto">
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
                 </Button>
@@ -181,7 +181,6 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
               </div>
             </Tabs>
           </div>
-        
         </DialogContent>
       </Dialog>
 
