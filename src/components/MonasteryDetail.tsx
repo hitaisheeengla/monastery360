@@ -78,7 +78,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
                 </Button>
-                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto">
+                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto p-x-3">
                   <Plus className="h-4 w-4 mr-1" />
                   Add to Trip
                 </Button>
@@ -116,8 +116,8 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                       width="100%"
                        className="h-[300px] md:h-[400px] lg:h-[500px] w-full"
                       image={monastery.panoramaUrl}
-                      pitch={10}
-                      yaw={180}
+                      pitch={0}
+                      yaw={50}
                       hfov={110}
                       autoLoad
                       showControls
