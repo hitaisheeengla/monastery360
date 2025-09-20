@@ -95,7 +95,7 @@ const Explore = () => {
                 setEraFilter={setEraFilter}
               />
             </div>
-            {/* <Map monasteries={monasteries}/> */}
+            <Map monasteries={monasteries}/>
             
           </TabsContent>
           <TabsContent value="collection">
