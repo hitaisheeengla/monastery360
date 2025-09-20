@@ -2,6 +2,7 @@ import rumtekImg from '@/assets/rumtek-monastery.jpg';
 import pemayangtseImg from '@/assets/pemayangtse-monastery.jpg';
 import tashidingImg from '@/assets/tashiding-monastery.jpg';
 import encheyImg from '@/assets/enchey-monastery.jpg';
+import monasteryImg from '@/assets/monastery3.jpg';
 
 export interface Monastery {
   id: string;
@@ -33,7 +34,7 @@ export const monasteries: Monastery[] = [
     era: "16th Century",
     description: "The largest monastery in Sikkim, also known as the Dharma Chakra Centre. It's the seat of the Karmapa Lama. The monastery is renowned for its stunning architecture, vibrant festivals, and rich collection of Buddhist art and scriptures. Rumtek Monastery, also known as the Dharma Chakra Centre, is the largest and one of the most significant monasteries in Sikkim. It serves as the seat of the Karmapa Lama, the head of the Karma Kagyu lineage of Tibetan Buddhism. The monastery was originally built in the 16th century but was reconstructed in the 1960s by the 16th Karmapa after he fled Tibet following the Chinese invasion. Rumtek is renowned for its stunning traditional Tibetan architecture, vibrant annual festivals such as the Chaam dance, and its rich collection of Buddhist art, scriptures, and relics. The monastery complex includes several temples, stupas, and living quarters for monks, making it a vital center for religious study and practice in the region.",
     image: rumtekImg,
-    panoramaUrl: "https://pannellum.org/images/alma.jpg",
+    panoramaUrl: monasteryImg,
     audioGuideUrl: "/api/placeholder/audio",
     coordinates: { lat: 27.2984, lng: 88.5658 },
     gallery: [

@@ -61,7 +61,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="max-w-5xl max-h-[95vh] md:h-[90vh] p-0 mx-4">
-          <DialogHeader className="p-4 md:p-6 pb-0">
+          <DialogHeader className="px-4 pt-4 pb-0">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0 p-2">
               <div className="flex-1">
                 <DialogTitle className="text-xl md:text-2xl mb-2 pr-4">{monastery.name}</DialogTitle>
@@ -89,7 +89,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
           {/* ✅ Hidden audio element */}
           <audio ref={audioRef} src={tourAudio} preload="auto" />
 
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 pt-0">
+          <div className="flex-1 overflow-y-auto px-4 py-0 md:p-6">
 
             <Tabs defaultValue="tour" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
@@ -109,12 +109,12 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                 </TabsTrigger>
               </TabsList>
               {/* ✅ Wrapper with margin so TabsList doesn't shift */}
-              <div className="mt-4 md:mt-6 min-h-[300px] md:min-h-[450px]">
+              <div className="min-h-[300px] md:min-h-[450px]">
                 <TabsContent value="tour">
                   <div className="relative flex justify-center">
                     <Pannellum
                       width="100%"
-                      height="300px"
+                       className="h-[300px] md:h-[400px] lg:h-[500px] w-full"
                       image={monastery.panoramaUrl}
                       pitch={10}
                       yaw={180}
@@ -123,10 +123,10 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                       showControls
                       showFullscreenCtrl
                       showZoomCtrl
-                      style={{ 
-                        maxHeight: '400px',
-                        height: 'clamp(250px, 50vh, 400px)'
-                      }}
+                      // style={{ 
+                      //   maxHeight: '400px',
+                      //   height: 'clamp(250px, 50vh, 400px)'
+                      // }}
                     />
                     {isPlaying && (
                       <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-background/90 backdrop-blur-sm rounded-lg p-2 md:p-3 flex items-center space-x-1 md:space-x-2">
