@@ -16,8 +16,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MapPin, Play, Pause,Headphones, Share, FileText, BarChart3, Camera, Compass, Book } from 'lucide-react';
+import { MapPin, Play, Pause,Headphones, Share, FileText, BarChart3, Camera, Compass, Book , MessageSquare} from 'lucide-react';
 import { BookingStatus } from '@/components/Booking';
+import FloatingTourGuideButton from '@/components/FloatingTourGuideButton';
+
 
 const Journey = () => {
   const { savedMonasteries, savedEvents } = useTripPlanner();
@@ -28,6 +30,7 @@ const Journey = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [travelMode, setTravelMode] = useState<'driving' | 'walking'>('driving');
   const [isJourneyActive, setIsJourneyActive] = useState(false);
+
 
   // Mock GPS detection
   const mockGPSDetection = () => {
@@ -280,8 +283,16 @@ const Journey = () => {
         show={showNotification}
         onClose={() => setShowNotification(false)}
       />
+
+      <FloatingTourGuideButton
+        currentLocation={currentLocation ? {
+          lat: currentLocation.lat,
+          lng: currentLocation.lng,
+          name: currentLocationName || 'Unknown Location'
+        } : undefined}
+      />
       
-      <FloatingEmergencyButton />
+      {/* <FloatingEmergencyButton /> */}
     </div>
   );
 };
