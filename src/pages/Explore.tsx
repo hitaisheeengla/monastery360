@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MapPin, Landmark, Sparkles, Eye, Navigation } from 'lucide-react';
 import Map from '@/components/map';
 
-// import "mapbox-gl/dist/mapbox-gl.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 
 
@@ -95,7 +95,7 @@ const Explore = () => {
                 setEraFilter={setEraFilter}
               />
             </div>
-            {/* <Map monasteries={monasteries}/> */}
+            <Map monasteries={monasteries}/>
             
           </TabsContent>
           <TabsContent value="collection">

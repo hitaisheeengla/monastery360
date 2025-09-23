@@ -78,7 +78,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
                 </Button>
-                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto p-x-3">
+                <Button onClick={handleAddToTrip} variant="monastery" size="sm" className="w-full sm:w-auto">
                   <Plus className="h-4 w-4 mr-1" />
                   Add to Trip
                 </Button>
