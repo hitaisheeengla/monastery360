@@ -210,10 +210,11 @@ const TourGuideModal: React.FC<TourGuideModalProps> = ({
                 >
                   {isAutoPlay ? <Volume2 className="h-3 w-3 sm:h-4 sm:w-4" /> : <VolumeX className="h-3 w-3 sm:h-4 sm:w-4" />}
                 </Button>
-                <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 sm:h-9 sm:w-9">
+                {/* <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 sm:h-9 sm:w-9">
                   <X className="h-3 w-3 sm:h-4 sm:w-4" />
-                </Button>
+                </Button> */}
               </div>
+              
             </div>
           </DialogHeader>
 
