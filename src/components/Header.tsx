@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { 
-  Menu, 
-  X, 
+import {
+  Menu,
+  X,
   Globe,
   MapPin,
   Calendar,
@@ -15,6 +15,7 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState('English');
+  const [showSignupDropdown, setShowSignupDropdown] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -50,7 +51,7 @@ const Header = () => {
 
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link key={path} to={path}>
-                <Button 
+                <Button
                   variant={isActive(path) ? "default" : "ghost"}
                   className="flex items-center space-x-0.5"
                 >
@@ -73,12 +74,45 @@ const Header = () => {
               <option value="Nepali">नेपाली</option>
             </select> */}
             <Link to="/login">
-    <Button variant="outline">Sign In</Button>
-  </Link>
-  <Link to="/signup">
-  <Button> Sign Up</Button>
-  </Link>
-            
+              <Button variant="outline">Sign In</Button>
+            </Link>
+            <div className="relative flex-1">
+              <Link to="/signup">
+              <Button
+                className="w-full"
+                style={{ backgroundColor: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))' }}
+                // onClick={() => setShowSignupDropdown((prev) => !prev)}
+              >
+                Sign Up
+              </Button>
+              </Link>
+              {/* {showSignupDropdown && (
+                <div className="absolute right-0 mt-2 w-max min-w-[10rem] bg-background border border-border rounded-md shadow-lg z-50 overflow-hidden whitespace-nowrap">
+                  <Link
+                    to="/signup?role=tourist"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10"
+                    onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                  >
+                    Tourist
+                  </Link>
+                  <Link
+                    to="/signup?role=organization"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10"
+                    onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                  >
+                    Local Organization
+                  </Link>
+                  <Link
+                    to="/signup?role=authority"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10"
+                    onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                  >
+                    Monastery Authority
+                  </Link>
+                </div>
+              )} */}
+            </div>
+
           </div>
 
           {/* Mobile Menu Button */}
@@ -93,24 +127,30 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-border">
-            <nav className="flex flex-col space-y-2 mt-4">
-              {navItems.map(({ path, label, icon: Icon }) => (
-                <Link key={path} to={path}>
-                  <Button 
-                    variant={isActive(path) ? "default" : "ghost"}
-                    className="w-full justify-start flex items-center space-x-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span>{label}</span>
-                  </Button>
-                </Link>
-              ))}
-            </nav>
-            
-            <div className="flex flex-col space-y-2 mt-4">
-              {/* <select 
+          <>
+            {/* Overlay for click-to-close (optional) */}
+            <div
+              className="fixed inset-0 bg-black bg-opacity-30 z-40"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            {/* Drawer Sidebar */}
+            <div className="fixed top-0 left-0 h-auto w-60 bg-background z-50 shadow-lg border-r border-border">
+              <nav className="flex flex-col space-y-2 mt-6 px-2">
+                {navItems.map(({ path, label, icon: Icon }) => (
+                  <Link key={path} to={path} onClick={() => setIsMenuOpen(false)}>
+                    <Button
+                      variant={isActive(path) ? "default" : "ghost"}
+                      className="w-full justify-start flex items-center space-x-2"
+                    >
+                      <Icon className="w-4 h-4" />
+                      <span>{label}</span>
+                    </Button>
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="flex flex-col space-y-2 mt-4 mb-6 px-2">
+                {/* <select 
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
                 className="bg-background border border-border rounded-md px-3 py-2"
@@ -119,12 +159,53 @@ const Header = () => {
                 <option value="Hindi">हिंदी</option>
                 <option value="Nepali">नेपाली</option>
               </select> */}
-              <div className="flex space-x-2">
-                <Button variant="outline" className="flex-1">Sign In</Button>
-                <Button className="flex-1">Sign Up</Button>
+                <div className="flex space-x-2">
+                  <div className="relative flex-1">
+                    <Link to="/signup">
+                    <Button
+                      className="w-full"
+                      style={{ backgroundColor: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))' }}
+                      // onClick={() => setShowSignupDropdown((prev) => !prev)}
+                    >
+                      Sign Up
+                    </Button>
+                    </Link>
+                    {/* {showSignupDropdown && (
+                      <div className="absolute left-0 mt-2 w-max min-w-[10rem] bg-background border border-border rounded-md shadow-lg z-50 overflow-hidden whitespace-nowrap">
+                        <Link
+                          to="/signup?role=tourist"
+                          className="block px-4 py-2 text-sm hover:bg-primary/10"
+                          onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                        >
+                          Tourist
+                        </Link>
+                        <Link
+                          to="/signup?role=organization"
+                          className="block px-4 py-2 text-sm hover:bg-primary/10"
+                          onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                        >
+                          Local Organization
+                        </Link>
+                        <Link
+                          to="/signup?role=authority"
+                          className="block px-4 py-2 text-sm hover:bg-primary/10"
+                          onClick={() => { setIsMenuOpen(false); setShowSignupDropdown(false); }}
+                        >
+                          Monastery Authority
+                        </Link>
+                      </div>
+                    )} */}
+                  </div>
+
+                  <Link to='/login' className="flex-1" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" >Sign In</Button>
+                  </Link>
+
+
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </header>

@@ -54,11 +54,12 @@ const PlanTrip = () => {
                 >
                   <MapPin className="h-4 w-4" />
                   <span className="hidden sm:inline">My Itinerary</span>
-                  <span className="sm:hidden">Itinerary</span>
+                  {/* <span className="sm:hidden">Itinerary</span> */}
                   {totalItems > 0 && (
-                    <Badge variant="secondary" className="ml-1 text-xs">
+                    <Badge variant="secondary" className="ml-1 text-xs hidden sm:inline">
                       {totalItems}
                     </Badge>
+                    
                   )}
                 </TabsTrigger>
                 
@@ -68,7 +69,7 @@ const PlanTrip = () => {
                 >
                   <Route className="h-4 w-4" />
                   <span className="hidden sm:inline">Travel Routes</span>
-                  <span className="sm:hidden">Routes</span>
+                  {/* <span className="sm:hidden">Routes</span> */}
                 </TabsTrigger>
                 
                 <TabsTrigger 
@@ -77,7 +78,7 @@ const PlanTrip = () => {
                 >
                   <Car className="h-4 w-4" />
                   <span className="hidden sm:inline">Transport</span>
-                  <span className="sm:hidden">Transport</span>
+                  {/* <span className="sm:hidden">Transport</span> */}
                 </TabsTrigger>
                 
                 <TabsTrigger 
@@ -86,7 +87,7 @@ const PlanTrip = () => {
                 >
                   <Home className="h-4 w-4" />
                   <span className="hidden sm:inline">Homestays</span>
-                  <span className="sm:hidden">Stays</span>
+                  {/* <span className="sm:hidden">Stays</span> */}
                 </TabsTrigger>
                 
                 <TabsTrigger 
@@ -95,7 +96,7 @@ const PlanTrip = () => {
                 >
                   <Download className="h-4 w-4" />
                   <span className="hidden sm:inline">Download</span>
-                  <span className="sm:hidden">Download</span>
+                  {/* <span className="sm:hidden">Download</span> */}
                 </TabsTrigger>
               </TabsList>
             </div>

@@ -76,7 +76,7 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
                 <img
                   src={archive.highResImage}
                   alt={archive.title}
-                  className="w-full h-96 rounded-lg border-2 border-border/50 hover:border-primary/50 transition-colors"
+                  className="w-full h-96 rounded-lg border-2 border-border/50 hover:border-primary/50 transition-colors "
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors rounded-lg flex items-center justify-center">
                   <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -181,7 +181,7 @@ const ArchiveDetailModal: React.FC<ArchiveDetailModalProps> = ({ archive, isOpen
 
       {/* Full-Screen Image Modal */}
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] p-2">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] p-2  fixed left-[50%] top-[50%]">
           <div className="relative w-full h-full flex flex-col">
             {/* Controls */}
             <div className="flex justify-between items-center p-2 bg-background/80 backdrop-blur-sm rounded-lg mb-2">

@@ -60,7 +60,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-5xl max-h-[95vh] md:h-[90vh] p-0 mx-4">
+        <DialogContent className="max-w-5xl max-h-[95vh] md:h-[90vh] p-0 mx-4 fixed left-[46%] top-[50%]">
           <DialogHeader className="px-4 pt-4 pb-0">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0 p-2">
               <div className="flex-1">
@@ -73,7 +73,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
                   <Badge variant="outline">{monastery.era}</Badge>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto px-3">
                 <Button onClick={toggleAudio} variant="outline" size="sm" className="w-full sm:w-auto">
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   <span className="ml-1">{isPlaying ? 'Pause' : 'Audio Tour'}</span>
@@ -187,7 +187,7 @@ const MonasteryDetail: React.FC<MonasteryDetailProps> = ({ monastery, isOpen, on
       {/* Image Viewer Modal */}
       {selectedImage && (
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="max-w-4xl mx-4">
+          <DialogContent className="max-w-4xl mx-4 fixed left-[46%] top-[50%]">
             <img
               src={selectedImage}
               alt="Gallery image"

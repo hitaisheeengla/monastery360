@@ -15,6 +15,8 @@ import PostTrip from "./pages/PostTrip";
 import NotFound from "./pages/NotFound";
 import Login from './pages/login';
 import Signup from "./pages/signup";
+// import "./App.css";
+
 
 
 const queryClient = new QueryClient();
