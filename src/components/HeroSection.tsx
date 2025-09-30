@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Route, Archive, Calendar, Sparkles, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroImage from '@/assets/monastery-hero.jpg';
+import FloatingTourGuideButton from './FloatingTourGuideButton';
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -149,6 +150,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div> */}
+      <FloatingTourGuideButton
+      />
     </div>
   );
 };

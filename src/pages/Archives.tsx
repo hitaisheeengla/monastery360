@@ -5,6 +5,7 @@ import ArchiveFilters from '@/components/ArchiveFilters';
 import ArchiveGallery from '@/components/ArchiveGallery';
 import ArchiveDetailModal from '@/components/ArchiveDetailModal';
 import { ArchiveItem } from '@/data/archives';
+import FloatingTourGuideButton from '@/components/FloatingTourGuideButton';
 
 const Archives = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,6 +101,8 @@ const Archives = () => {
           onClose={handleCloseModal}
         />
       </div>
+      <FloatingTourGuideButton
+      />
     </div>
   );
 };

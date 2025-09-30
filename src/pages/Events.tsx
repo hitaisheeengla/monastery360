@@ -1,5 +1,6 @@
 import React from 'react';
 import EventCalendar from '@/components/EventCalendar';
+import FloatingTourGuideButton from '@/components/FloatingTourGuideButton';
 
 const Events = () => {
   return (
@@ -15,6 +16,8 @@ const Events = () => {
         
         <EventCalendar />
       </div>
+      <FloatingTourGuideButton
+      />
     </div>
   );
 };

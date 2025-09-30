@@ -285,11 +285,6 @@ const Journey = () => {
       />
 
       <FloatingTourGuideButton
-        currentLocation={currentLocation ? {
-          lat: currentLocation.lat,
-          lng: currentLocation.lng,
-          name: currentLocationName || 'Unknown Location'
-        } : undefined}
       />
       
       {/* <FloatingEmergencyButton /> */}

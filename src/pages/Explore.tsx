@@ -10,6 +10,7 @@ import { MapPin, Landmark, Sparkles, Eye, Navigation } from 'lucide-react';
 import Map from '@/components/map';
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import FloatingTourGuideButton from '@/components/FloatingTourGuideButton';
 
 
 
@@ -133,6 +134,8 @@ const Explore = () => {
         monastery={selectedMonastery}
         isOpen={!!selectedMonastery}
         onClose={() => setSelectedMonastery(null)}
+      />
+      <FloatingTourGuideButton
       />
     </div>
   );

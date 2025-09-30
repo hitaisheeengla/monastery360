@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { MapPin, Route, Car, Home, Download, Sparkles, Calendar, Users } from 'lucide-react';
-
+import FloatingTourGuideButton from '@/components/FloatingTourGuideButton';
 const PlanTrip = () => {
   const { savedMonasteries, savedEvents } = useTripPlanner();
   const [activeTab, setActiveTab] = useState('itinerary');
@@ -187,6 +187,8 @@ const PlanTrip = () => {
             </TabsContent>
           </Tabs>
         </div>
+        <FloatingTourGuideButton
+      />
     </div>
   );
 };
