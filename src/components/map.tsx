@@ -53,11 +53,12 @@ const Map: React.FC<MapProps> = ({ monasteries }) => {
   return (
    <div className="bg-card rounded-lg p-6 shadow-cultural mb-8 flex flex-col lg:flex-row gap-6">
   {/* Map Section */}
-  <div className="w-full md:w-2/3">
+  <div className="w-full lg:w-2/3 h-[300px] md:h-[500px]">
         <MapContainer
           center={center}
           zoom={9}
-          style={{ height: "100%", width: "100%", borderRadius: "20px", zIndex: 1 }}
+          className="h-full w-full rounded-2xl z-10"
+          // style={{ height: "100%", width: "100%", borderRadius: "20px", zIndex: 1 }}
           scrollWheelZoom={false}
           whenCreated={(map) => {
             map.on("click", () => map.scrollWheelZoom.enable());
@@ -83,7 +84,7 @@ const Map: React.FC<MapProps> = ({ monasteries }) => {
   </div>
 
   {/* Right-side Cards */}
-  <div className="w-full lg:w-1/3 max-h-[50vh] lg:max-h-[54vh] overflow-y-auto space-y-4">
+  <div className="w-full lg:w-1/3 max-h-[50vh] lg:max-h-[74vh] overflow-y-auto space-y-4">
     {monasteries.map((monastery) => (
       <Card
         key={monastery.id}

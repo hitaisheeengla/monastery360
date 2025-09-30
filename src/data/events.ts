@@ -141,12 +141,12 @@ export const culturalEvents: CulturalEvent[] = [
     description: 'Traditional ceremony to bless the harvest and express gratitude to nature.',
     timings: '8:00 AM - 12:00 PM',
     category: 'ceremony',
-    image: '/api/placeholder/400/250'
+    image: 'https://media.gettyimages.com/id/1086316022/photo/artists-from-sikkim-pose-at-the-tableau-of-their-to-be-displayed-at-the-upcoming-republic-day.jpg?s=612x612&w=gi&k=20&c=JP0oT8frKmAL6xagwotepv2FuFTnUT0n7eMRQ-wWjeU='
   },
   {
     id: 'winter-solstice',
     title: 'Winter Solstice Meditation',
-    date: new Date(2025, 11, 21), // December 21, 2025
+    date: new Date(2025, 4, 21), // December 21, 2025
     location: 'Enchey Monastery',
     monastery: 'enchey',
     description: 'Special meditation session to welcome the winter solstice and inner reflection.',

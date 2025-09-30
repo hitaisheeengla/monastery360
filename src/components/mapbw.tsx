@@ -65,11 +65,12 @@ const RouteMap: React.FC<RouteMapProps> = ({monasteries}) => {
   return (
     <div className="w-full flex flex-col gap-5 md:flex-row">
   {/* Map Section */}
-      <div className="w-full md:w-2/3">
+      <div className="w-full lg:w-2/3 h-[300px] md:h-[400px]">
       <MapContainer
         center={center}
         zoom={9}
-        style={{ height: "100%", width: "100%", borderRadius: "20px", zIndex: 1 }}
+        className="h-full w-full rounded-2xl z-10"
+        // style={{ height: "100%", width: "100%", borderRadius: "20px", zIndex: 1 }}
         scrollWheelZoom={false}
         whenCreated={(map) => {
           map.on("click", () => map.scrollWheelZoom.enable());

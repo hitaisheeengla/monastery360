@@ -361,10 +361,7 @@ const ItineraryManager = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <RouteMap 
-
-      monasteries={monasteries}
-    />
+              <RouteMap monasteries={monasteries}/>
               {/* <InteractiveMap 
                 filteredMonasteries ={null}
                 isFiltered = {false}
