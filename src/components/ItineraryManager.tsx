@@ -8,6 +8,7 @@ import { MapPin, Calendar, Trash2, GripVertical, Plus, Clock, Map, Route, Eye } 
 import InteractiveMap from './InteractiveMap';
 import { useTripPlanner } from '@/hooks/useTripPlanner';
 import { format } from 'date-fns';
+import { useNavigate } from "react-router-dom";
 import {
   DndContext,
   closestCenter,
@@ -29,9 +30,9 @@ import { CSS } from '@dnd-kit/utilities';
 import RouteMap from './mapbw';
 
 // Sortable item component for monasteries
-const SortableMonasteryItem = ({ monastery, index, onRemove }: { 
-  monastery: any; 
-  index: number; 
+const SortableMonasteryItem = ({ monastery, index, onRemove }: {
+  monastery: any;
+  index: number;
   onRemove: (id: string) => void;
 }) => {
   const {
@@ -46,24 +47,24 @@ const SortableMonasteryItem = ({ monastery, index, onRemove }: {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
+  
   return (
     <div className="group relative bg-gradient-to-r from-card via-card to-primary/5 border rounded-xl p-4 hover:shadow-mountain transition-all duration-300 hover:border-primary/30 animate-scale-in"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="flex items-center gap-4">
-        <div 
-          {...attributes} 
+        <div
+          {...attributes}
           {...listeners}
           className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-primary transition-colors"
         >
           <GripVertical className="h-4 w-4" />
         </div>
-        
+
         <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium shadow-md animate-pulse">
           {index + 1}
         </div>
-        
+
         <div className="flex-1">
           <h4 className="font-semibold text-lg">{monastery.name}</h4>
           <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
@@ -78,7 +79,7 @@ const SortableMonasteryItem = ({ monastery, index, onRemove }: {
             </Badge>
           </div>
         </div>
-        
+
         <Button
           variant="ghost"
           size="icon"
@@ -95,7 +96,7 @@ const SortableMonasteryItem = ({ monastery, index, onRemove }: {
 const ItineraryManager = () => {
   const { savedMonasteries, savedEvents, removeMonastery, removeEvent } = useTripPlanner();
   const [monasteries, setMonasteries] = useState(savedMonasteries);
-  
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -123,7 +124,7 @@ const ItineraryManager = () => {
   const organizeByDays = () => {
     const days: any[] = [];
     let currentDay: any[] = [];
-    
+
     monasteries.forEach((monastery, index) => {
       if (index > 0 && index % 3 === 0) {
         days.push(currentDay);
@@ -132,15 +133,16 @@ const ItineraryManager = () => {
         currentDay.push(monastery);
       }
     });
-    
+
     if (currentDay.length > 0) {
       days.push(currentDay);
     }
-    
+
     return days;
   };
 
   if (savedMonasteries.length === 0 && savedEvents.length === 0) {
+    const navigate = useNavigate();
     return (
       <Card className="border-dashed">
         <CardContent className="p-12 text-center">
@@ -152,7 +154,7 @@ const ItineraryManager = () => {
             <p className="text-muted-foreground mb-4">
               Start exploring monasteries and events to build your perfect spiritual journey!
             </p>
-            <Button variant="outline" onClick={() => window.location.href = '/explore'}>
+            <Button variant="outline" onClick={() => navigate("/explore")}>
               Explore Monasteries
             </Button>
           </div>
@@ -170,7 +172,7 @@ const ItineraryManager = () => {
           <TabsTrigger value="map">Map View</TabsTrigger>
           <TabsTrigger value="list">List View</TabsTrigger>
           <TabsTrigger value="days">Day-wise Plan</TabsTrigger>
-          
+
         </TabsList>
 
         <TabsContent value="list" className="space-y-6">
@@ -193,8 +195,8 @@ const ItineraryManager = () => {
                   collisionDetection={closestCenter}
                   onDragEnd={handleDragEnd}
                 >
-                  <SortableContext 
-                    items={monasteries.map(m => m.id)} 
+                  <SortableContext
+                    items={monasteries.map(m => m.id)}
                     strategy={verticalListSortingStrategy}
                   >
                     <div className="space-y-3">
@@ -316,7 +318,7 @@ const ItineraryManager = () => {
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
-                      
+
                       {/* Connection Line */}
                       {index < dayMonasteries.length - 1 && (
                         <div className="flex items-center justify-center my-2">
@@ -329,7 +331,7 @@ const ItineraryManager = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 {/* Day Summary */}
                 <div className="mt-6 p-4 bg-muted/30 rounded-lg border border-dashed border-border">
                   <div className="flex items-center justify-between text-sm">
@@ -361,7 +363,7 @@ const ItineraryManager = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <RouteMap monasteries={monasteries}/>
+              <RouteMap monasteries={monasteries} />
               {/* <InteractiveMap 
                 filteredMonasteries ={null}
                 isFiltered = {false}
